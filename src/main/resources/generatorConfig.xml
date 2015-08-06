@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry
+        location="/Users/hujh/Documents/mvn3/appfuse/repository/mysql/mysql-connector-java/5.1.26/mysql-connector-java-5.1.26.jar" />
+    <context id="context1" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://127.0.0.1/flux?useUnicode=true&amp;characterEncoding=UTF-8"
+            userId="admin" password="admin" />
+            
+        <javaModelGenerator targetPackage="com.github.hzw.security.entity"
+            targetProject="/Users/hujh/git/outsourcing/flux/src/main/java" />
+            
+        <sqlMapGenerator targetPackage="" 
+            targetProject="/Users/hujh/git/outsourcing/flux/src/main/resources/mappings" />
+        
+        <!--   
+        <javaClientGenerator targetPackage="com.renrenxian.manage.persistence"
+            targetProject="/Users/hujh/Documents/src/dan/website/src/test/java" type="XMLMAPPER" />
+         -->  
+
+        <table schema="flux" tableName="record_log" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <!--  
+        	<property name="modelOnly" value="true"/>
+        -->
+        
+        
+    </context>
+</generatorConfiguration>
