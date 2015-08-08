@@ -115,4 +115,26 @@
 	</aop:config>
 
 	
+	<!-- kaptcha -->
+	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">  
+        <property name="config">  
+            <bean class="com.google.code.kaptcha.util.Config">  
+                <constructor-arg>  
+                   <props>  
+                        <prop key="kaptcha.border">yes</prop><!--边框 yes:有 no:没有--> 
+                        <prop key="kaptcha.border.color">white</prop><!--边框颜色 可以设置（r,g,b）或者 white,black,blue.默认black-->
+                        <prop key="kaptcha.textproducer.font.color">black</prop><!--字体颜色-->  
+                        <prop key="kaptcha.image.width">125</prop><!--图片的宽度--> 
+                        <prop key="kaptcha.image.height">45</prop><!--图片的高度-->  
+                        <prop key="kaptcha.textproducer.font.size">40</prop>
+                        <prop key="kaptcha.session.key">code</prop>  
+                        <prop key="kaptcha.textproducer.char.length">4</prop>  
+                        <prop key="kaptcha.textproducer.font.names">Arial, Courier</prop><!--字体列表-->
+                    </props>  
+                </constructor-arg>  
+            </bean>  
+        </property>  
+    </bean>
+    
+	
 </beans>
