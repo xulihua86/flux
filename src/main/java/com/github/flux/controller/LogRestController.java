@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.flux.entity.Log;
 import com.github.flux.service.LogService;
 import com.github.flux.util.IpUtil;
+import com.github.flux.util.result.BaseResult;
 import com.github.flux.util.result.MapResult;
 
 @Controller
@@ -44,4 +45,20 @@ public class LogRestController extends BaseController {
 		}
 	}
 
+	@ResponseBody
+	@RequestMapping("get")  // 1497
+	public Map<String, Object> get(HttpServletRequest req,
+			@RequestParam(value = "id", required = true) String id
+			) {
+		try {
+			Log log = logService.getById(id);
+			Map<String, Object> map = MapResult.initMap(BaseResult.SUCCESS.getCode(), BaseResult.SUCCESS.getMsg());
+			map.put("data", log);
+			return map;
+		} catch (Exception ex) {
+			return MapResult.failMap();
+		}
+	}
+	
+	
 }
