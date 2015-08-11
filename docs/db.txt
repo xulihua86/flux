@@ -1,0 +1,163 @@
+
+-- 用户
+create table user (
+	userid long not null,
+	mobile varchar(11),  -- 手机
+	account number(10),  -- 用户帐户
+	add_sum number(10),  -- 收入
+	sub_sum	number(10),	 -- 支出
+	logo varchar(256),	-- 头像(可设置为json)
+	nickname varchar(64),
+	industry varchar(128),
+	gender int,  -- 0 女 1 男 2 保密
+	year int, -- 出生年岁
+	signature varchar(255), -- 签名
+	create_time long,  -- 创建时间
+	-- 企业
+	PRIMARY KEY (userid),
+	UNIQUE unique_1 (mobile)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 帐户明细
+create table account_log(
+	log_id  int not null,
+	userid long not null,
+	addorsub int not null,  -- 增减(0 减  1增)
+	num number not null,	-- 增减数量
+	create_time long not null, -- 发生时间
+	descn varchar(255)		-- 描述
+	PRIMARY KEY (log_id)
+);
+
+-- userid + yyyymmdd 唯一
+create table sign (
+	sign_id  long  not null,
+	userid	long not null,
+	yyyymm int not null,  -- 签到月份
+	yyyymmdd int not null, -- 签到日期
+	create_time long not null, -- 时间
+	PRIMARY KEY (sign_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 奖品池配置
+create table prize_pool (
+	pool_id int not null,
+	sum_num number(10) not null,   -- 投放奖金总和
+	consumed number(10) not null,   -- 已消费
+	daily_max number(10) not null,  -- 每天最多消费
+	every_max number(10) not null,  -- 每次最双消费
+	PRIMARY KEY (pool_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 出库情况
+create table prize_out(
+	our_id varchar(64) not null,  -- uuid
+	userid number not null, 
+	sum_num	 number long not null,  -- 出池数据
+	out_num number,	 -- 奖品被抽走数量之和
+	out_time long,	 -- 奖品抽走时间
+	return_num	number,	-- 归还数量
+	return_time long,  -- 归还时间(由系统定时计算，3点计算前一天抽奖情况)  sum = out + return
+	PRIMARY KEY (our_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 抽奖活动结果   (该中奖属于某一次出库，多条记录属于一次出库)
+create table prize_detail (
+	detail_id long not null,
+	our_id number not null,   -- 属于那次出库
+	userid long not null,
+	flow_num int not null,  	-- 抽中的奖品数  flow_num *n  == out_num
+	create_time long not null,  -- 中奖时间
+	is_receive int not null,  -- 0 未领取 1 领取
+	receive_time long,			-- 领取时间
+	PRIMARY KEY (detail_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 约会类型
+create table appointment_type(
+	type_id	int not null,
+	name varchar(256) not null,  -- 类型名称
+	template varchar(256) not null,  -- 模版 ？？
+);
+
+
+-- 约会   (?? 企业约？？)
+create table appointment(
+	appointment_id int not null,
+	userid int not null,  -- 发起约会人
+	type_id	int not null,  -- 约会类型
+	name varchar(255) not null,  -- 约会名称
+	logo varchar(256),		-- 约会logo
+	target_num int not null,  -- 目标人数
+	begin_time	long not null,  -- 开始时间
+	end_time long not null,   -- 结束时间
+	standard varchar(255),	  -- 奖励标准
+	declaration varchar(255),  -- 宣言
+	flux_num int not null,		-- 流量币
+	only_friend int not null,   -- 仅朋友可见（0 否， 1 是)
+	push_friend int not null,    -- 是否向朋友推送(0 不， 1是)
+	enroll_num int not null default 0,	-- 已报名人数
+	enroll_userids text,   -- 已报名的人的userid组合，由逗号分隔(X)
+	view_num int not null default 0,  -- 查年人数
+	create_time long not null,	 -- 发布时间
+	status int not null,  -- 活动状态 ( -1 未开始， 0 进行中  1 已结束）
+	PRIMARY KEY (appointment_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 我发起的：我发起的所有约会活动
+-- 我报名：是我报名参与的所有约会活动。
+-- 我关注：是我关注的所有约会活动。
+-- 参与过：是我报名过的，但活动已结束了的。
+create table partake_appointment(
+	partake_id	int not null,
+	appointment_id int not null,  
+	userid int not null,
+	type int not null,  (0 报名 1 关注)
+	create_time long not null,  -- 报名的时间
+	PRIMARY KEY  (partake_id),
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 好友关注(我关注的朋友)  可用redis的sortSet结构存储
+create table flower(
+	userid int not null,      -- 第一人称
+	friend_id int not null,   -- 关注的人
+	create_time long not null, -- 关注时间
+);
+
+
+-- 我的消息(共有哪些消息?)
+create table message(
+	msg_id int not null,
+	userid int not null,
+	type int not null,  -- 1 朋友转赠
+	num  int,
+	template varchar(256), 
+	status int not null,  -- 当type 为 1时， 0 未领取 1 已领取
+	create_time long not null,
+);
+ 
+ 
+ -- 我的步迹
+create table trace_log(
+	log_id int not null,
+	userid int not null,
+	descn varchar(255) not null,
+	create_time long not null,
+);
+
+
+-- 如何发起一项任务？？
+create table task(
+
+);
+
+
+-- 商城产品
+
+
+
