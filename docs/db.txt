@@ -127,7 +127,9 @@ create table flower(
 	userid int not null,      -- 第一人称
 	friend_id int not null,   -- 关注的人
 	create_time long not null, -- 关注时间
-);
+	
+	PRIMARY KEY  (userid)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- 我的消息(共有哪些消息?)
@@ -139,7 +141,8 @@ create table message(
 	template varchar(256), 
 	status int not null,  -- 当type 为 1时， 0 未领取 1 已领取
 	create_time long not null,
-);
+	PRIMARY KEY  (msg_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
  
  
  -- 我的步迹
@@ -148,16 +151,52 @@ create table trace_log(
 	userid int not null,
 	descn varchar(255) not null,
 	create_time long not null,
-);
+	PRIMARY KEY  (log_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 任务配置池
+create table task(
+	task_id	int not null,
+	name varchar(64) not null,
+	code int	not null,   -- 任务编号
+	descn text, -- 任务流程， 规则等
+	reward_num int not null,   -- 完成任务奖励的流量币
+	PRIMARY KEY  (task_id),
+	UNIQUE unique_1 (code)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- 如何发起一项任务？？
-create table task(
+create table my_task(
+	my_task_id	int not null,
+	userid	int not null,
+	task_id	int not null, 
+	reward_num int not null,   -- 完成任务奖励的流量币
+	status int not null,  -- 完成任务后，流量币的领取情况  0 未领取 1 领取
+	create_time long not null,  -- 入库时间
+	receive_time	long not null,  -- 领取时间
+	PRIMARY KEY  (my_task_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-);
+
+-- 流量币交易 (不做)
+create table trade(
+	trade_id	int not null,
+	type	int not null,   -- 交易类型
+	
+	
+	PRIMARY KEY  (trade_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- 商城产品
-
+create table shop_product(
+	prod_id int not null,
+	
+	
+	
+	PRIMARY KEY  (prod_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
