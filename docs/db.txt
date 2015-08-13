@@ -106,7 +106,7 @@ create table appointment(
 	PRIMARY KEY (appointment_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+-- 定时扫描，标志已结束
 -- 我发起的：我发起的所有约会活动
 -- 我报名：是我报名参与的所有约会活动。
 -- 我关注：是我关注的所有约会活动。
@@ -143,7 +143,7 @@ create table message(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
  
  
- -- 我的步迹
+ -- 我的步迹(那些动作组成足迹？)
 create table trace_log(
 	log_id bigint(20) not null auto_increment,
 	userid bigint(20) not null,
@@ -153,7 +153,7 @@ create table trace_log(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 任务配置池
+-- 任务配置池(字典表，每一种任务的流程， 如何发起，如何进行，如何结束？)
 create table task(
 	task_id	bigint(20) not null auto_increment,
 	name varchar(64) not null,
@@ -195,7 +195,7 @@ create table shop_goods(
 	logo varchar(128) not null comment '产品logo',
 	descn text comment '产品描述',
 	type	int(1) not null comment '0 流量币购买， 1 现金购买',
-	price	decimal(10,2) not null comment '价格，以元为单位，精确到2位小数',
+	price  bigint not null comment '价格：人民币以分为单位， 流量币以一个单位流量为单位',
 	stock  bigint(20)		not null comment '库存',
 	sold   bigint(20)		not null comment '已售出',
 	PRIMARY KEY  (goods_id)
@@ -205,8 +205,9 @@ create table shop_goods(
 create table orders(
 	order_id bigint(20) not null auto_increment,
 	userid bigint(20) not null,
-	price decimal(10,2) not null comment '总价',
+	price bigint not null comment '总价, 人民币以分为单位，流量以个为单位',
 	goods_id	bigint(20) not null comment '商品id',
+	num		int		not null comment '商品数量',
 	create_time bigint(20) not null comment '加入时间',
 	pay_status int(1) not null comment '0 未支付 1 已支付 2 支付失败',
 	pay_time bigint(20) not null comment '支付时间',
@@ -229,7 +230,8 @@ create table pay_log(
 	log_id bigint(20) not null auto_increment,
 	tran_no	varchar(64),
 	order_id bigint(20) not null,
-	status int(1) not null,
+	price bigint not null comment '总价',
+	status int(1) not null comment '正在支付，，支付成功，支付失败',  
 	create_time bigint(20) not null,
 	PRIMARY KEY  (log_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
