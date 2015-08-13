@@ -6,8 +6,8 @@ create table user (
 	add_sum bigint(10) comment '收入', 
 	sub_sum	bigint(10) comment '支出',
 	logo varchar(256) comment '头像(可设置为json)',
-	nickname varchar(64),
-	industry varchar(128),
+	nickname varchar(64) comment '昵称',
+	industry varchar(128) comment '行业',
 	gender int(1) comment '0 女 1 男 2 保密',
 	year int(8) comment '出生年岁',
 	signature varchar(255) comment '签名',
@@ -74,7 +74,7 @@ create table prize_detail (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 约会类型
+-- 约会类型  有哪些约会？模板是怎么样的？
 create table appointment_type(
 	type_id	bigint(20) not null,
 	name varchar(256) not null comment '类型名称',
