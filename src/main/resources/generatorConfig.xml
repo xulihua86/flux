@@ -8,22 +8,115 @@
             connectionURL="jdbc:mysql://127.0.0.1/flux?useUnicode=true&amp;characterEncoding=UTF-8"
             userId="admin" password="admin" />
             
-        <javaModelGenerator targetPackage="com.github.hzw.security.entity"
+        <javaModelGenerator targetPackage="com.github.flux.entity"
             targetProject="/Users/hujh/git/outsourcing/flux/src/main/java" />
             
         <sqlMapGenerator targetPackage="" 
             targetProject="/Users/hujh/git/outsourcing/flux/src/main/resources/mappings" />
         
-        <!--   
-        <javaClientGenerator targetPackage="com.renrenxian.manage.persistence"
-            targetProject="/Users/hujh/Documents/src/dan/website/src/test/java" type="XMLMAPPER" />
-         -->  
-
-        <table schema="flux" tableName="record_log" enableCountByExample="false" enableUpdateByExample="false"
+        
+         <table schema="flux" tableName="flower" enableCountByExample="false" enableUpdateByExample="false"
         enableDeleteByExample="false" enableSelectByExample="false"
         selectByExampleQueryId="false">
         </table>
         
+        <!-- 
+         <table schema="flux" tableName="log" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false" 
+        selectByExampleQueryId="false">
+        </table>
+        
+          
+        <javaClientGenerator targetPackage="com.manage.persistence"
+            targetProject="/Users/hujh/Documents/src/dan/website/src/test/java" type="XMLMAPPER" />
+
+        <table schema="flux" tableName="user" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="account_log" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="sign" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="prize_pool" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="prize_out" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="prize_detail" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="appointment_type" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="appointment" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="my_appointment" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="flower" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="message" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="trace_log" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="task" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="my_task" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        
+        <table schema="flux" tableName="shop_goods" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="orders" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+        
+        <table schema="flux" tableName="pay_log" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false">
+        </table>
+         -->  
+         
         <!--  
         	<property name="modelOnly" value="true"/>
         -->

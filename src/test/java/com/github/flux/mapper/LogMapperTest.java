@@ -25,7 +25,7 @@ public class LogMapperTest {
 		log.setModule("d");
 		log.setAction("de");
 		log.setActionTime("21");
-		log.setUserIP("12");
+		log.setUserIp("12");
 		log.setOperTime(new Date());
 		logMapper.add(log);
 	}

@@ -74,11 +74,13 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.github.flux.mapper" />
 	</bean>
+	
 	<!-- 事务配置 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
 	<aop:config>
 		<aop:pointcut
 			expression="execution(public * com.github.flux.service.impl.*Impl.*(..))"
@@ -101,6 +103,7 @@
 	
 	<context:component-scan base-package="com.github.flux.service" />
 	<!-- 隐式地向 Spring 容器注册 -->
+	
 	<context:annotation-config />
 	
 	

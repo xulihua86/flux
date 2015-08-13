@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.flux.mapper.MessageMapper" >
+
+  <resultMap id="BaseResultMap" type="com.github.flux.entity.Message" >
+    <id column="msg_id" property="msgId" jdbcType="BIGINT" />
+    <result column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="BIGINT" />
+    <result column="template" property="template" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    msg_id msgId, userid, type, num, template, status, create_time createTime
+  </sql>
+  
+  
+  <select id="query" resultType="Message" parameterType="java.util.HashMap">
+		select
+		<include refid="Base_Column_List" />
+		from message
+		<where>
+			
+		</where>
+		order by create_time desc
+	</select>
+
+	<select id="queryAll" resultType="Message">
+		select
+		<include refid="Base_Column_List" />
+		from message
+		order by create_time desc
+	</select>
+	
+	
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where msg_id = #{msgId,jdbcType=BIGINT}
+  </select>
+  
+  
+  <delete id="deleteById" parameterType="java.lang.Long" >
+    delete from message
+    where msg_id = #{msgId,jdbcType=BIGINT}
+  </delete>
+  
+  
+  <insert id="add" parameterType="com.github.flux.entity.Message" useGeneratedKeys="true" keyProperty="msg_id" >
+    insert into message (userid, type, 
+      num, template, status, 
+      create_time)
+    values (#{userid,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, 
+      #{num,jdbcType=BIGINT}, #{template,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=BIGINT})
+  </insert>
+  
+
+  <update id="update" parameterType="com.github.flux.entity.Message" >
+    update message
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=BIGINT},
+      </if>
+      <if test="template != null" >
+        template = #{template,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where msg_id = #{msgId,jdbcType=BIGINT}
+  </update>
+  
+  
+</mapper>

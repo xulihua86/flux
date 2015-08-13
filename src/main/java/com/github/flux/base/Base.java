@@ -10,8 +10,8 @@ public interface Base<T> {
 	 * @return
 	 */
 	public List<T> queryAll(T t);
-	public void delete(String id) throws Exception;
-	public void update(T t) throws Exception;
-	public T getById(String id);
-	public void add(T t) throws Exception;
+	public void deleteById(Long id);
+	public void update(T t);
+	public T getById(Long id);
+	public void add(T t);
 }

@@ -8,12 +8,12 @@
 		username,
 		module,
 		action,
-		actionTime,
-		userIP,
-		operTime
+		action_time,
+		user_ip,
+		oper_time
 	</sql>
 	<!--resultType="Log" 每返回一条结果封装到Log里 -->
-	<select id="query" resultType="Log" parameterType="Log">
+	<select id="query" resultType="Log" parameterType="java.util.HashMap">
 		select
 		<include refid="selectId" />
 		from log
@@ -25,37 +25,37 @@
 				module like '%${t.module}%'
 			</if>
 		</where>
-		order by operTime desc
+		order by oper_time desc
 	</select>
 	<select id="queryAll" resultType="Log">
 		select
 		<include refid="selectId" />
 		from log
-		order by operTime desc
+		order by oper_time desc
 	</select>
 	<!-- 增加用户 -->
-	<insert id="add" parameterType="Log">
+	<insert id="add" parameterType="Log" useGeneratedKeys="true" keyProperty="id">
 		insert into log (
 			username,
 			module,
 			action,
-			actionTime,
-			userIP
+			action_time,
+			user_ip
 		)
 		values(
 			#{username},
 			#{module},
 			#{action},
 			#{actionTime},
-			#{userIP}
+			#{userIp}
 		)
 	</insert>
 
-	<delete id="deleteById" parameterType="String">
+	<delete id="deleteById" parameterType="Long">
 		delete from log where
 		id=#{id}
 	</delete>
-	<select id="getById" parameterType="String" resultType="Log">
+	<select id="getById" parameterType="Long" resultType="Log">
 		select
 		<include refid="selectId" />
 		from log where id=#{id}
@@ -66,7 +66,7 @@
 		username=#{username},
 		module=#{module},
 		action=#{action},
-		userIP=#{userIP},
+		userIp=#{userIp},
 		</set>
 		where id=#{id}
 	</update>

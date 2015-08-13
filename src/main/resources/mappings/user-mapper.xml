@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.flux.mapper.UserMapper">
+
+	<sql id="selectId1">
+		userid,
+		mobile,
+		account,
+		add_sum addSum,
+		sub_sum subSum,
+		logo,
+		nickname,
+		industry,
+		gender,
+		year,
+		signature,
+		create_time createTime
+	</sql>
+
+	<sql id="selectId">
+		userid, mobile, account, add_sum addSum, sub_sum subSum, logo, nickname, industry, gender,
+		year,
+		signature, create_time createTime
+	</sql>
+
+	<!--resultType="Account" 每返回一条结果封装到Account里 -->
+	<select id="query" resultType="User" parameterType="java.util.HashMap">
+		select
+		<include refid="selectId" />
+		from user
+		<where>
+			<if test="t.mobile != null and t.mobile != ''">
+				mobile like '%${t.mobile}%'
+			</if>
+			<if test="t.nickname != null and t.nickname != ''">
+				and nickname like '%${t.nickname}%'
+			</if>
+		</where>
+		order by userid desc
+	</select>
+
+	<select id="queryAll" resultType="User">
+		select
+		<include refid="selectId" />
+		from user
+		order by create_time desc
+	</select>
+
+	<select id="getById" parameterType="Long" resultType="User">
+		select
+		<include refid="selectId" />
+		from user where id = #{userid}
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from user
+		where userid = #{userid,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="add" parameterType="User" useGeneratedKeys="true" keyProperty="userid">
+		insert into user (mobile, account,
+		add_sum, sub_sum, logo,
+		nickname, industry, gender,
+		year, signature, create_time
+		)
+		values ( #{mobile,jdbcType=VARCHAR}, #{account,jdbcType=BIGINT},
+		#{addSum,jdbcType=BIGINT}, #{subSum,jdbcType=BIGINT},
+		#{logo,jdbcType=VARCHAR},
+		#{nickname,jdbcType=VARCHAR}, #{industry,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER},
+		#{year,jdbcType=INTEGER}, #{signature,jdbcType=VARCHAR},
+		#{createTime,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.github.flux.entity.User">
+		update user
+		<set>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="account != null">
+				account = #{account,jdbcType=BIGINT},
+			</if>
+			<if test="addSum != null">
+				add_sum = #{addSum,jdbcType=BIGINT},
+			</if>
+			<if test="subSum != null">
+				sub_sum = #{subSum,jdbcType=BIGINT},
+			</if>
+			<if test="logo != null">
+				logo = #{logo,jdbcType=VARCHAR},
+			</if>
+			<if test="nickname != null">
+				nickname = #{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="industry != null">
+				industry = #{industry,jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null">
+				gender = #{gender,jdbcType=INTEGER},
+			</if>
+			<if test="year != null">
+				year = #{year,jdbcType=INTEGER},
+			</if>
+			<if test="signature != null">
+				signature = #{signature,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=BIGINT},
+			</if>
+		</set>
+		where userid = #{userid,jdbcType=BIGINT}
+	</update>
+
+
+</mapper>

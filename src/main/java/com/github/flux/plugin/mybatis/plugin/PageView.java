@@ -72,9 +72,9 @@ public class PageView {
 	 * @param pageNow
 	 *            　当前页
 	 */
-	public PageView(int pageSize, int pageNow) {
-		this.pageSize = pageSize;
+	public PageView(int pageNow, int pageSize) {
 		this.pageNow = pageNow;
+		this.pageSize = pageSize;
 	}
 
 	/**

@@ -36,7 +36,7 @@ public class LogRestController extends BaseController {
 			log.setModule(module);
 			log.setAction(action);
 			log.setActionTime(System.currentTimeMillis() + "");
-			log.setUserIP(IpUtil.getClientIP(req));
+			log.setUserIp(IpUtil.getClientIP(req));
 			log.setOperTime(new Date());
 			logService.add(log);
 			return MapResult.successMap();
@@ -48,7 +48,7 @@ public class LogRestController extends BaseController {
 	@ResponseBody
 	@RequestMapping("get")  // 1497
 	public Map<String, Object> get(HttpServletRequest req,
-			@RequestParam(value = "id", required = true) String id
+			@RequestParam(value = "id", required = true) Long id
 			) {
 		try {
 			Log log = logService.getById(id);

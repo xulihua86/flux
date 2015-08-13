@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.flux.mapper.PrizeDetailMapper" >
+
+  <resultMap id="BaseResultMap" type="com.github.flux.entity.PrizeDetail" >
+    <id column="detail_id" property="detailId" jdbcType="BIGINT" />
+    <result column="our_id" property="ourId" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="flow_num" property="flowNum" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="is_receive" property="isReceive" jdbcType="INTEGER" />
+    <result column="receive_time" property="receiveTime" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    detail_id detailId, 
+    our_id ourId, userid, 
+    flow_num flowNum, 
+    create_time createTime, 
+    is_receive isReceive, 
+    receive_time receiveTime
+  </sql>
+  
+  
+   <select id="query" resultType="PrizeDetail" parameterType="java.util.HashMap">
+		select
+		<include refid="Base_Column_List" />
+		from prize_detail
+		<where>
+			
+		</where>
+		order by create_time desc
+	</select>
+
+	<select id="queryAll" resultType="PrizeDetail">
+		select
+		<include refid="Base_Column_List" />
+		from prize_detail
+		order by create_time desc
+	</select>
+  
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+   
+    select 
+    <include refid="Base_Column_List" />
+    from prize_detail
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteById" parameterType="java.lang.Long" >
+   
+    delete from prize_detail
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="add" parameterType="com.github.flux.entity.PrizeDetail" useGeneratedKeys="true" keyProperty="detail_id">
+    insert into prize_detail (our_id, userid, 
+      flow_num, create_time, is_receive, 
+      receive_time)
+    values (#{ourId,jdbcType=VARCHAR}, #{userid,jdbcType=BIGINT}, 
+      #{flowNum,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, #{isReceive,jdbcType=INTEGER}, 
+      #{receiveTime,jdbcType=BIGINT})
+  </insert>
+  
+  <update id="update" parameterType="com.github.flux.entity.PrizeDetail" >
+   
+    update prize_detail
+    <set >
+      <if test="ourId != null" >
+        our_id = #{ourId,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="flowNum != null" >
+        flow_num = #{flowNum,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="isReceive != null" >
+        is_receive = #{isReceive,jdbcType=INTEGER},
+      </if>
+      <if test="receiveTime != null" >
+        receive_time = #{receiveTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+  
+</mapper>

@@ -34,7 +34,8 @@ create table sign (
 	yyyymm int(6) not null comment '签到月份',
 	yyyymmdd int(8) not null comment '签到日期',
 	create_time bigint(20) not null comment '时间',
-	PRIMARY KEY (sign_id)
+	PRIMARY KEY (sign_id),
+	UNIQUE unique_1 (user_id,yyyymmdd)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -76,7 +77,7 @@ create table prize_detail (
 
 -- 约会类型  有哪些约会？模板是怎么样的？
 create table appointment_type(
-	type_id	bigint(20) not null,
+	type_id	bigint(20) not null auto_increment,
 	name varchar(256) not null comment '类型名称',
 	template varchar(256) not null comment '模版 ？？',
 	PRIMARY KEY (type_id)
@@ -111,8 +112,8 @@ create table appointment(
 -- 我报名：是我报名参与的所有约会活动。
 -- 我关注：是我关注的所有约会活动。
 -- 参与过：是我报名过的，但活动已结束了的。
-create table partake_appointment(
-	partake_id	bigint(20) not null auto_increment,
+create table my_appointment(
+	my_id	bigint(20) not null auto_increment,
 	appointment_id bigint(20) not null,  
 	userid bigint(20) not null,
 	type int(1) not null comment '(0 报名 1 关注)',
@@ -123,10 +124,11 @@ create table partake_appointment(
 
 -- 好友关注(我关注的朋友)  可用redis的sortSet结构存储
 create table flower(
-	userid bigint(20) not null auto_increment comment '第一人称' ,
+	flower_id bigint not null auto_increment
+	userid bigint(20) not null comment '第一人称' ,
 	friend_id bigint(20) not null comment '关注的人',
 	create_time bigint(20) not null comment '关注时间',
-	PRIMARY KEY  (userid)
+	PRIMARY KEY  (flower_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

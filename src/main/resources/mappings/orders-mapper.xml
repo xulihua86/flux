@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.flux.mapper.OrdersMapper" >
+
+  <resultMap id="BaseResultMap" type="com.github.flux.entity.Orders" >
+    <id column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="goods_id" property="goodsId" jdbcType="BIGINT" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="pay_status" property="payStatus" jdbcType="INTEGER" />
+    <result column="pay_time" property="payTime" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    order_id orderId, userid, price, 
+    goods_id goodsId, num, 
+    create_time createTime, 
+    pay_status payStatus, 
+    pay_time payTime
+  </sql>
+  
+  
+   <select id="query" resultType="Orders" parameterType="java.util.HashMap">
+		select
+		<include refid="Base_Column_List" />
+		from orders
+		<where>
+			
+		</where>
+		order by create_time desc
+	</select>
+
+	<select id="queryAll" resultType="Orders">
+		select
+		<include refid="Base_Column_List" />
+		from orders
+		order by create_time desc
+	</select>
+  
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  
+  
+  <delete id="deleteById" parameterType="java.lang.Long" >
+    delete from orders
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="add" parameterType="com.github.flux.entity.Orders" useGeneratedKeys="true" keyProperty="order_id" >
+    insert into orders (userid, price, 
+      goods_id, num, create_time, 
+      pay_status, pay_time)
+    values (#{userid,jdbcType=BIGINT}, #{price,jdbcType=BIGINT}, 
+      #{goodsId,jdbcType=BIGINT}, #{num,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, 
+      #{payStatus,jdbcType=INTEGER}, #{payTime,jdbcType=BIGINT})
+  </insert>
+  
+  <update id="update" parameterType="com.github.flux.entity.Orders" >
+    update orders
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+  
+</mapper>
