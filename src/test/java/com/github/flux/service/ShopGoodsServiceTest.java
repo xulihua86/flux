@@ -7,26 +7,27 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.flux.entity.PrizeDetail;
+import com.github.flux.entity.ShopGoods;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath*:spring-application.xml")
-public class PrizeDetailServiceTest {
+public class ShopGoodsServiceTest {
 
 	@Resource
-	private PrizeDetailService prizeDetailService;
+	private ShopGoodsService shopGoodsService;
 	
 	@Test
 	public void addTest() {
-		PrizeDetail m = new PrizeDetail();
-		m.setCreateTime(System.currentTimeMillis());
-		m.setDetailId(1l);
-		m.setFlowNum(1l);
-		m.setIsReceive(1);
-		m.setOutId("12");
-		m.setReceiveTime(System.currentTimeMillis());
-		m.setUserid(1l);
-		prizeDetailService.add(m);
+		ShopGoods m = new ShopGoods();
+		m.setDescn("de");
+		m.setLogo("s");
+		m.setName("n");
+		m.setPrice(1l);
+		m.setSold(2l);
+		m.setStock(2l);
+		m.setType(1);
+		shopGoodsService.add(m);
+		
 	}
 	
 }

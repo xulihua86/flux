@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.flux.mapper.TaskMapper">
+
+	<resultMap id="BaseResultMap" type="com.github.flux.entity.Task">
+		<id column="task_id" property="taskId" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="code" property="code" jdbcType="BIGINT" />
+		<result column="reward_num" property="rewardNum" jdbcType="BIGINT" />
+		<result column="descn" property="descn" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		task_id taskId, name, code, reward_num rewardNum, descn
+	</sql>
+
+	<select id="query" resultType="Task" parameterType="java.util.HashMap">
+		select
+		<include refid="Base_Column_List" />
+		from task
+		<where>
+
+		</where>
+		order by task_id desc
+	</select>
+
+	<select id="queryAll" resultType="Task">
+		select
+		<include refid="Base_Column_List" />
+		from task
+		order by task_id desc
+	</select>
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from task
+		where task_id = #{taskId,jdbcType=BIGINT}
+	</select>
+
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from task
+		where task_id = #{taskId,jdbcType=BIGINT}
+	</delete>
+
+
+	<insert id="add" parameterType="com.github.flux.entity.Task"
+		useGeneratedKeys="true" keyProperty="task_id">
+		insert into task (name, code,
+		reward_num, descn)
+		values (#{name,jdbcType=VARCHAR}, #{code,jdbcType=BIGINT},
+		#{rewardNum,jdbcType=BIGINT}, #{descn,jdbcType=LONGVARCHAR})
+	</insert>
+
+	<update id="update" parameterType="com.github.flux.entity.Task">
+		update task
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				code = #{code,jdbcType=BIGINT},
+			</if>
+			<if test="rewardNum != null">
+				reward_num = #{rewardNum,jdbcType=BIGINT},
+			</if>
+			<if test="descn != null">
+				descn = #{descn,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where task_id = #{taskId,jdbcType=BIGINT}
+	</update>
+
+</mapper>

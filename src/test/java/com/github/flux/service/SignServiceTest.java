@@ -7,26 +7,23 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.flux.entity.PrizeDetail;
+import com.github.flux.entity.Sign;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath*:spring-application.xml")
-public class PrizeDetailServiceTest {
+public class SignServiceTest {
 
 	@Resource
-	private PrizeDetailService prizeDetailService;
+	private SignService signService;
 	
 	@Test
 	public void addTest() {
-		PrizeDetail m = new PrizeDetail();
+		Sign m = new Sign();
 		m.setCreateTime(System.currentTimeMillis());
-		m.setDetailId(1l);
-		m.setFlowNum(1l);
-		m.setIsReceive(1);
-		m.setOutId("12");
-		m.setReceiveTime(System.currentTimeMillis());
-		m.setUserid(1l);
-		prizeDetailService.add(m);
+		m.setUserId(1l);
+		m.setYyyymm(201412);
+		m.setYyyymmdd(20141201);
+		signService.add(m);
+		
 	}
-	
 }

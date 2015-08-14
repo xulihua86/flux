@@ -7,26 +7,29 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.flux.entity.PrizeDetail;
+import com.github.flux.entity.PrizeOut;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath*:spring-application.xml")
-public class PrizeDetailServiceTest {
+public class PrizeOutServicetest {
+
 
 	@Resource
-	private PrizeDetailService prizeDetailService;
+	private PrizeOutService prizeOutService;
 	
 	@Test
 	public void addTest() {
-		PrizeDetail m = new PrizeDetail();
-		m.setCreateTime(System.currentTimeMillis());
-		m.setDetailId(1l);
-		m.setFlowNum(1l);
-		m.setIsReceive(1);
-		m.setOutId("12");
-		m.setReceiveTime(System.currentTimeMillis());
+		PrizeOut m = new PrizeOut();
+		m.setOurId("uuu");
+		m.setOutNum(1l);
+		m.setOutTime(System.currentTimeMillis());
+		m.setReturnNum(2L);
+		m.setReturnTime(System.currentTimeMillis());
+		m.setSumNum(2l);
 		m.setUserid(1l);
-		prizeDetailService.add(m);
+		
+		
+		prizeOutService.add(m);
 	}
 	
 }

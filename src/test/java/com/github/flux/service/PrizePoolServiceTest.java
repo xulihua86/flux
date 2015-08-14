@@ -7,26 +7,25 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.flux.entity.PrizeDetail;
+import com.github.flux.entity.PrizePool;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath*:spring-application.xml")
-public class PrizeDetailServiceTest {
+public class PrizePoolServiceTest {
 
 	@Resource
-	private PrizeDetailService prizeDetailService;
+	private PrizePoolService prizePoolService;
 	
 	@Test
 	public void addTest() {
-		PrizeDetail m = new PrizeDetail();
-		m.setCreateTime(System.currentTimeMillis());
-		m.setDetailId(1l);
-		m.setFlowNum(1l);
-		m.setIsReceive(1);
-		m.setOutId("12");
-		m.setReceiveTime(System.currentTimeMillis());
-		m.setUserid(1l);
-		prizeDetailService.add(m);
+		PrizePool m = new PrizePool();
+		m.setConsumed(1l);
+		m.setDailyMax(10l);
+		m.setEveryMax(2l);
+		m.setSumNum(20l);
+		
+		prizePoolService.add(m);
 	}
+	
 	
 }

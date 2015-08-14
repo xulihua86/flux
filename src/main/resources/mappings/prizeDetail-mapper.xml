@@ -4,7 +4,7 @@
 
   <resultMap id="BaseResultMap" type="com.github.flux.entity.PrizeDetail" >
     <id column="detail_id" property="detailId" jdbcType="BIGINT" />
-    <result column="our_id" property="ourId" jdbcType="VARCHAR" />
+    <result column="out_id" property="outId" jdbcType="VARCHAR" />
     <result column="userid" property="userid" jdbcType="BIGINT" />
     <result column="flow_num" property="flowNum" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
@@ -14,13 +14,12 @@
   
   <sql id="Base_Column_List" >
     detail_id detailId, 
-    our_id ourId, userid, 
+    out_id outId, userid, 
     flow_num flowNum, 
     create_time createTime, 
     is_receive isReceive, 
     receive_time receiveTime
   </sql>
-  
   
    <select id="query" resultType="PrizeDetail" parameterType="java.util.HashMap">
 		select
@@ -54,10 +53,10 @@
   </delete>
   
   <insert id="add" parameterType="com.github.flux.entity.PrizeDetail" useGeneratedKeys="true" keyProperty="detail_id">
-    insert into prize_detail (our_id, userid, 
+    insert into prize_detail (out_id, userid, 
       flow_num, create_time, is_receive, 
       receive_time)
-    values (#{ourId,jdbcType=VARCHAR}, #{userid,jdbcType=BIGINT}, 
+    values (#{outId,jdbcType=VARCHAR}, #{userid,jdbcType=BIGINT}, 
       #{flowNum,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, #{isReceive,jdbcType=INTEGER}, 
       #{receiveTime,jdbcType=BIGINT})
   </insert>
@@ -66,8 +65,8 @@
    
     update prize_detail
     <set >
-      <if test="ourId != null" >
-        our_id = #{ourId,jdbcType=VARCHAR},
+      <if test="outId != null" >
+        our_id = #{outId,jdbcType=VARCHAR},
       </if>
       <if test="userid != null" >
         userid = #{userid,jdbcType=BIGINT},

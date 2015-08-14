@@ -52,20 +52,20 @@ create table prize_pool (
 
 -- 出库情况
 create table prize_out(
-	our_id varchar(64) not null comment 'uuid',
+	out_id varchar(64) not null comment 'uuid',
 	userid bigint(20) not null, 
 	sum_num	 bigint(20) not null comment '出池数据',
 	out_num bigint(20) comment '奖品被抽走数量之和',
 	out_time bigint(20) comment '奖品抽走时间',
 	return_num	bigint(20) comment '归还数量',
 	return_time bigint(20) comment '归还时间(由系统定时计算，3点计算前一天抽奖情况)  sum = out + return',
-	PRIMARY KEY (our_id)
+	PRIMARY KEY (out_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 抽奖活动结果   (该中奖属于某一次出库，多条记录属于一次出库)
 create table prize_detail (
 	detail_id bigint(20) not null auto_increment,
-	our_id varchar(64) not null comment '属于那次出库',
+	out_id varchar(64) not null comment '属于那次出库',
 	userid bigint(20) not null,
 	flow_num bigint(20) not null comment '抽中的奖品数  flow_num *n  == out_num',
 	create_time bigint(20) not null comment '中奖时间',
