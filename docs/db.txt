@@ -2,7 +2,9 @@
 create table user (
 	userid bigint(20) not null auto_increment,
 	mobile varchar(11) not null comment '手机',
-	account bigint(10) comment '用户帐户',
+	account bigint(10) default 0 comment '用户帐户',
+	frozen_account bigint(10) default 0 comment '被冻结',
+	locked int(1) default 0 comment '帐户是否被锁定 0 未锁定 1 锁定',
 	add_sum bigint(10) comment '收入', 
 	sub_sum	bigint(10) comment '支出',
 	logo varchar(256) comment '头像(可设置为json)',
@@ -12,7 +14,6 @@ create table user (
 	year int(8) comment '出生年岁',
 	signature varchar(255) comment '签名',
 	create_time bigint(20) comment '创建时间',
-	
 	PRIMARY KEY (userid),
 	UNIQUE unique_1 (mobile)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -21,10 +22,19 @@ create table user (
 create table account_log(
 	log_id bigint(20) not null auto_increment,
 	userid bigint(20) not null,
-	addorsub int(1) not null comment '增减(0 减  1增)',
+	addorsub int(1) not null comment '增减(1 减  0 增)  0 入账 1 出帐',
 	num bigint(20) not null comment '增减数量',
 	create_time bigint(20) not null comment '发生时间',
-	descn varchar(255) comment '描述',
+	descn varchar(255) comment '描述', 
+	
+	operation_name varchar(50) comment '0 签到赠送 1 手机绑定 2 企业活动赠送 3 用户赠送 4流量币充值',
+	operation_record_id varchar(50) comment '不同的业务名称，对应于不同的业务记录：
+		领取码领取：领取码表的领取码字段
+		流量产品兑换：流量产品兑换流量币表的订单ID
+		兑换流量产品：流量币兑换流量产品表的订单ID
+		签到奖励：用户签到奖励日志表的ID
+		手机绑定奖励：用户手机绑定奖励日志的ID
+		…',
 	PRIMARY KEY (log_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -142,6 +152,7 @@ create table message(
 	template varchar(256), 
 	status int(1) not null comment '当type 为 1时， 0 未领取 1 已领取',
 	create_time bigint(20) not null,
+	tag_value varchar(512) comment '存放标签和值的映射（json）后加的',
 	PRIMARY KEY  (msg_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
  
@@ -231,13 +242,77 @@ create table order_item(
  -- 支付日志
 create table pay_log(
 	log_id bigint(20) not null auto_increment,
-	tran_no	varchar(64),
+	tran_no	varchar(64) comment '交易订单号',
 	order_id bigint(20) not null,
 	price bigint not null comment '总价',
 	status int(1) not null comment '正在支付，，支付成功，支付失败',  
 	create_time bigint(20) not null,
 	PRIMARY KEY  (log_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+/* 卡券记录的列清单 */
+/*==============================================================*/
+/* Table: flow_recharge_record */
+/*==============================================================*/
+create table flow_recharge_record
+(
+id integer not null auto_increment,
+open_id varchar(50),
+active_type_id integer comment '0 当月生效 1 下月生效',
+recharge_mobile_no varchar(20),
+operator_type varchar(20) comment '流量平台提供，移动CMCC 联通CUCC 电信CTCC',
+flow_pack_id integer comment '流量平台提供 根据实际充值手机号，所取的具体流量包ID',
+flow_size int comment '流量平台提供 根据实际充值手机号，所取的具体流量包规格 30M 50M 70M 等',
+recharge_snap varchar(500) comment '充值：具体运营商流量包信息快照 如，全国电信 50M',
+task_id varchar(20) comment '提交充值请求后，返回的该充值任务唯一识别标志用于回写充值结果',
+status integer comment '1 充值中 2 充值成功 3 运营商充值失败',
+status_remark varchar(500) comment '比如领取码充值，运营商报告失败，则写明运营商充值失败，错误码等',
+create_time timestamp,
+modify_time timestamp,
+user_item_id integer,
+source_type integer comment '0领取码领取，1流量产品，2流量币',
+source_data varchar(50) comment '如果是领取码领取，对应已领用领取表的领取码字段，如果是流量产品，对应于已使用流量产品的产品件ID字段。如果是流量币，写流量币金额',
+primary key (id)
+);
+
+
+-- 流量赠送的图清单
+create table flow_gift
+(
+id integer not null auto_increment,
+user_open_id varchar(50),
+friend_open_id varchar(50),
+coin_amount integer,
+receive_code varchar(16),
+expire_time timestamp,
+status integer comment '0:未领取,1:已领取，2:已过期，3不可用',
+used_time timestamp,
+create_time timestamp,
+modify_time timestamp,
+gift_type integer comment '0通过领取码赠送 1公社内直接赠送',
+primary key (id)
+);
+
+
+create table award_rule
+(
+id integer not null auto_increment,
+name varchar(200) comment '绑定手机奖励 每日签到奖励 累积签到天数 累积签到奖励',
+description varchar(500),
+rule_value integer,
+available_time timestamp,
+expire_time timestamp,
+create_time timestamp,
+modify_time timestamp,
+primary key (id)
+);
+
+alter table award_rule comment '签到规则 绑定手机奖励规则等 是一个常量表';
+
+
 
 
 -- https://github.com/beecloud/beecloud-java/releases

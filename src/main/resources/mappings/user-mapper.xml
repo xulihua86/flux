@@ -6,6 +6,8 @@
 		userid,
 		mobile,
 		account,
+		frozen_account frozenAccount,
+		locked,
 		add_sum addSum,
 		sub_sum subSum,
 		logo,
@@ -18,9 +20,9 @@
 	</sql>
 
 	<sql id="selectId">
-		userid, mobile, account, add_sum addSum, sub_sum subSum, logo, nickname, industry, gender,
-		year,
-		signature, create_time createTime
+		userid, mobile, account, frozen_account frozenAccount, locked, add_sum addSum, 
+		sub_sum subSum, logo, nickname, industry, gender,
+		year,signature, create_time createTime
 	</sql>
 
 	<!--resultType="Account" 每返回一条结果封装到Account里 -->
@@ -58,12 +60,13 @@
 	</delete>
 
 	<insert id="add" parameterType="User" useGeneratedKeys="true" keyProperty="userid">
-		insert into user (mobile, account,
+		insert into user (mobile, account, frozen_account, locked, 
 		add_sum, sub_sum, logo,
 		nickname, industry, gender,
 		year, signature, create_time
 		)
 		values ( #{mobile,jdbcType=VARCHAR}, #{account,jdbcType=BIGINT},
+		#{frozenAccount,jdbcType=BIGINT},#{locked,jdbcType=INTEGER},
 		#{addSum,jdbcType=BIGINT}, #{subSum,jdbcType=BIGINT},
 		#{logo,jdbcType=VARCHAR},
 		#{nickname,jdbcType=VARCHAR}, #{industry,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER},
@@ -78,8 +81,14 @@
 			<if test="mobile != null">
 				mobile = #{mobile,jdbcType=VARCHAR},
 			</if>
+			<if test="frozenAccount != null">
+				frozen_account = #{frozenAccount,jdbcType=BIGINT},
+			</if>
 			<if test="account != null">
 				account = #{account,jdbcType=BIGINT},
+			</if>
+			<if test="locked != null">
+				locked = #{locked,jdbcType=BIGINT},
 			</if>
 			<if test="addSum != null">
 				add_sum = #{addSum,jdbcType=BIGINT},

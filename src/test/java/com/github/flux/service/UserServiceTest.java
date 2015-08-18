@@ -24,6 +24,8 @@ public class UserServiceTest {
 		for(int i = 100; i < 200; i++) {
 			User user = new User();
 			user.setAccount(20L + i);
+			user.setFrozenAccount(0l);
+			user.setLocked(0);
 			user.setAddSum(10L + i);
 			user.setSubSum(4L + i );
 			user.setCreateTime(System.currentTimeMillis());
