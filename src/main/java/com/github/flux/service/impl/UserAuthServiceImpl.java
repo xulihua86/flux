@@ -23,6 +23,7 @@ public class UserAuthServiceImpl implements AccountResourceIntf {
 
 	
 	@Override
+	// cookieValue:  userId|deviceType|deviceId|token|lastLoginTime|appVer
 	public boolean isCookieValid(String cookieValue) {
 		
 		return true;
