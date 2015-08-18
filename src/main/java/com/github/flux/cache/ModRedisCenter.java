@@ -19,7 +19,7 @@ public class ModRedisCenter {
 	
 	private static ModRedisCenter instance = null;
 	
-	public static final String redisHostPort = "";  // 127.0.0.1:8282,127.0.0.1:8283
+	public static final String redisHostPort = "127.0.0.1:6379";  // 127.0.0.1:8282,127.0.0.1:8283
 	
 	private ModRedisCenter() {
 		initialPool();
