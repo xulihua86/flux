@@ -11,7 +11,7 @@ public class ConfigUtil {
         try {
             config = new PropertiesConfiguration();
             config.setEncoding("UTF-8");
-            config.load("jdbc.properties");
+            config.load("config.properties");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
