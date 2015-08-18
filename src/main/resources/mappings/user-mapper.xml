@@ -51,8 +51,15 @@
 	<select id="getById" parameterType="Long" resultType="User">
 		select
 		<include refid="selectId" />
-		from user where id = #{userid}
+		from user where userid = #{userid}
 	</select>
+
+	<select id="getByMobile" parameterType="String" resultType="User">
+		select
+		<include refid="selectId" />
+		from user where  mobile = #{mobile}
+	</select>
+
 
 	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from user

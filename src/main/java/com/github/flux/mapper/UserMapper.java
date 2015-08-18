@@ -5,5 +5,6 @@ import com.github.flux.entity.User;
 
 public interface UserMapper extends BaseMapper<User> {
 
+	public User getByMobile(String mobile);
 	
 }

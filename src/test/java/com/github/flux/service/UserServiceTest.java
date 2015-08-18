@@ -95,4 +95,12 @@ public class UserServiceTest {
 		userService.update(user);
 		
 	}
+	
+	@Test
+	public void userCacheTest() {
+		long userid = 1;
+		User user = userService.getByIdWithCache(userid);
+		System.out.println(user);
+	}
+	
 }

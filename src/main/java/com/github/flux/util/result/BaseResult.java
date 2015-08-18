@@ -25,7 +25,11 @@ public class BaseResult {
   public static final BaseResult SENSITIVE_SERVER_ERROR = new BaseResult(22, "敏感词服务器异常，请稍后再试。");
   public static final BaseResult SENSITIVE_EXIST_ERROR = new BaseResult(23, "输入的字段包含敏感词");
 
-
+  // 用户以 10000开头
+  public static final BaseResult ILLEGAL_MOBILE = new BaseResult(100001, "手机号不正确");
+  public static final BaseResult INVALID_CODE = new BaseResult(100002, "验证码已失效");
+  public static final BaseResult VALIDCODE_ERROR = new BaseResult(100003, "验证码错误");
+  
   
   public BaseResult() {}
 

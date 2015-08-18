@@ -404,13 +404,36 @@ public class User {
 		this.locked = locked;
 	}
 
+	private String token;
+	
+	
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	private long expireTime;
+
+	public long getExpireTime() {
+		return expireTime;
+	}
+
+	public void setExpireTime(long expireTime) {
+		this.expireTime = expireTime;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userid=" + userid + ", mobile=" + mobile + ", account=" + account + ", frozenAccount="
 				+ frozenAccount + ", locked=" + locked + ", addSum=" + addSum + ", subSum=" + subSum + ", logo=" + logo
 				+ ", nickname=" + nickname + ", industry=" + industry + ", gender=" + gender + ", year=" + year
-				+ ", signature=" + signature + ", createTime=" + createTime + "]";
+				+ ", signature=" + signature + ", createTime=" + createTime + ", token=" + token + "]";
 	}
+
+	
 
 	
 }
