@@ -30,7 +30,7 @@ public class BaseAuthInterceptor extends HandlerInterceptorAdapter {
 	private boolean debugMode = false;
 	private List<String> lstExclude = new ArrayList<String>();
 
-	@Resource(name = "userAuthClient")
+	@Resource(name = "userAuthService")
 	protected AccountResourceIntf accountResourceIntf;
 
 	public BaseAuthInterceptor() {
@@ -99,10 +99,6 @@ public class BaseAuthInterceptor extends HandlerInterceptorAdapter {
 			if (flag) {// 判断是否与服务缓存的cookie一致
 				return true;
 			}
-			
-//			if (DeviceUtils.isWebClient(deviceType)) {
-//				CookiesUtil.getInstance().removeCookie(request, response);
-//			}
 		}
 		if (StringUtils.endsWith(requestURI, "/user/login")) {
 			return true;
