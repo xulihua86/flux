@@ -30,7 +30,11 @@
 			</list>
 		</property>
 	</bean>
-
+	
+	<!-- cache -->
+	<bean id="redisCache" class="com.github.flux.cache.impl.RedisCacheImpl"></bean>
+	
+	
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="${jdbc.driver}" />
