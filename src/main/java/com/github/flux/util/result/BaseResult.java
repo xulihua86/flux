@@ -17,14 +17,14 @@ public class BaseResult {
   public static final BaseResult SERVICE_ERROR = new BaseResult(12, "网络或服务异常，请稍后再试");
   public static final BaseResult HAVE_TASK_ON = new BaseResult(13, "任务运行中");
   public static final BaseResult REPEAT_OPERATE = new BaseResult(15, "重复操作");
-  public static final BaseResult CSP_SERVER_ERROR = new BaseResult(18, "网络或服务异常，请稍后再试");
+  public static final BaseResult SERVER_ERROR = new BaseResult(18, "网络或服务异常，请稍后再试");
 
-  public static final BaseResult IDLIST_EMPTY_PARAMS = new BaseResult(19, "入参不能为空");
-  public static final BaseResult IDLIST_BATCH_SAVE_FAILED = new BaseResult(20, "idlist批量处理，部份失败");
+  public static final BaseResult EMPTY_PARAMS = new BaseResult(19, "入参不能为空");
+  public static final BaseResult BATCH_SAVE_FAILED = new BaseResult(20, "idlist批量处理，部份失败");
   public static final BaseResult ACCOUNT_USER_NOT_LOGIN = new BaseResult(21, "请重新登录后再试");
   public static final BaseResult SENSITIVE_SERVER_ERROR = new BaseResult(22, "敏感词服务器异常，请稍后再试。");
   public static final BaseResult SENSITIVE_EXIST_ERROR = new BaseResult(23, "输入的字段包含敏感词");
-  public static final BaseResult SETTING_SET_FAILED = new BaseResult(23, "网络或服务异常，请稍后再试");
+
 
   
   public BaseResult() {}
