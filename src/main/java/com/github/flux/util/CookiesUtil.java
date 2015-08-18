@@ -17,7 +17,7 @@ public class CookiesUtil {
   /**
    * 用户登录标记
    */
-  public final static String loginFlag = "imp.info";
+  public final static String loginFlag = "flux.info";
 
   private CookiesUtil() {
 
@@ -68,10 +68,10 @@ public class CookiesUtil {
           }
         }
     }
-    // userId|deviceType|deviceId|token|lastLoginTime|appVer|appId
+    // userId|deviceType|deviceId|token|lastLoginTime|appVer
     if (StringUtils.isNotBlank(result)) {
-      String[] cookieValue = result.split("[|]", 7);
-      if (cookieValue.length != 7)
+      String[] cookieValue = result.split("[|]", 6);
+      if (cookieValue.length != 6)
         result = null;
     }
     return result;
@@ -88,8 +88,8 @@ public class CookiesUtil {
       }
     }
     if (StringUtils.isNotEmpty(result)) {
-      // userId|deviceType|deviceId|token|lastLoginTime|appVer|appId
-      return result.split("[|]").length == 7;
+      // userId|deviceType|deviceId|token|lastLoginTime|appVer
+      return result.split("[|]").length == 6;
     }
     return false;
   }
@@ -122,10 +122,10 @@ public class CookiesUtil {
       if (StringUtils.isNotBlank(auth))
         result = ThreeDes.decrypt(auth);
     }
-    // userId|deviceType|deviceId|token|lastLoginTime|appVer|appId
+    // userId|deviceType|deviceId|token|lastLoginTime|appVer
     if (StringUtils.isNotBlank(result)) {
-      String[] cookieValue = result.split("[|]", 7);
-      if (cookieValue.length == 7)
+      String[] cookieValue = result.split("[|]", 6);
+      if (cookieValue.length == 6)
         return cookieValue;
     }
     return null;
@@ -188,8 +188,8 @@ public class CookiesUtil {
     long userId = 0L;
     String cookieValue = getCookieValue(request);
     if (StringUtils.isNotEmpty(cookieValue)) {
-      // userId|deviceType|deviceId|token|lastLoginTime|appVer|appId
-      String[] decryptValue = cookieValue.split("[|]", 7);
+      // userId|deviceType|deviceId|token|lastLoginTime|appVer
+      String[] decryptValue = cookieValue.split("[|]", 6);
       if (decryptValue.length == 7) {
         return Long.parseLong(decryptValue[0]);
       }
@@ -200,9 +200,9 @@ public class CookiesUtil {
   public String getToken(HttpServletRequest request) {
     String cookieValue = getCookieValue(request);
     if (StringUtils.isNotEmpty(cookieValue)) {
-      // userId|deviceType|deviceId|token|lastLoginTime|appVer|appId
-      String[] decryptValue = cookieValue.split("[|]", 7);
-      if (decryptValue.length == 7) {
+      // userId|deviceType|deviceId|token|lastLoginTime|appVer
+      String[] decryptValue = cookieValue.split("[|]", 6);
+      if (decryptValue.length == 6) {
         return decryptValue[3];
       }
     }
@@ -212,9 +212,9 @@ public class CookiesUtil {
   public String getUserDeviceType(HttpServletRequest request) {
     String cookieValue = getCookieValue(request);
     if (StringUtils.isNotEmpty(cookieValue)) {
-      // userId|deviceType|deviceId|token|lastLoginTime|appVer|appId
-      String[] decryptValue = cookieValue.split("[|]", 7);
-      if (decryptValue.length == 7) {
+      // userId|deviceType|deviceId|token|lastLoginTime|appVer
+      String[] decryptValue = cookieValue.split("[|]", 6);
+      if (decryptValue.length == 6) {
         return decryptValue[1];
       }
     }
@@ -224,9 +224,9 @@ public class CookiesUtil {
   public String getUserDeviceId(HttpServletRequest request) {
     String cookieValue = getCookieValue(request);
     if (StringUtils.isNotEmpty(cookieValue)) {
-      // userId|deviceType|deviceId|token|lastLoginTime|appVer|appId
-      String[] decryptValue = cookieValue.split("[|]", 7);
-      if (decryptValue.length == 7) {
+      // userId|deviceType|deviceId|token|lastLoginTime|appVer
+      String[] decryptValue = cookieValue.split("[|]", 6);
+      if (decryptValue.length == 6) {
         return decryptValue[2];
       }
     }
@@ -236,9 +236,9 @@ public class CookiesUtil {
   public String getAppVer(HttpServletRequest request) {
     String cookieValue = getCookieValue(request);
     if (StringUtils.isNotEmpty(cookieValue)) {
-      // userId|deviceType|deviceId|token|lastLoginTime|appVer|appId
-      String[] decryptValue = cookieValue.split("[|]", 7);
-      if (decryptValue.length == 7) {
+      // userId|deviceType|deviceId|token|lastLoginTime|appVer
+      String[] decryptValue = cookieValue.split("[|]", 6);
+      if (decryptValue.length == 6) {
         return decryptValue[5];
       }
     }
@@ -248,9 +248,9 @@ public class CookiesUtil {
   public String getAppId(HttpServletRequest request) {
     String cookieValue = getCookieValue(request);
     if (StringUtils.isNotEmpty(cookieValue)) {
-      // userId|deviceType|deviceId|token|lastLoginTime|appVer|appId
-      String[] decryptValue = cookieValue.split("[|]", 7);
-      if (decryptValue.length == 7) {
+      // userId|deviceType|deviceId|token|lastLoginTime|appVer
+      String[] decryptValue = cookieValue.split("[|]", 6);
+      if (decryptValue.length == 6) {
         return decryptValue[6];
       }
     }
