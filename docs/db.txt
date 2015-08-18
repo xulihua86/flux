@@ -12,6 +12,7 @@ create table user (
 	year int(8) comment '出生年岁',
 	signature varchar(255) comment '签名',
 	create_time bigint(20) comment '创建时间',
+	
 	PRIMARY KEY (userid),
 	UNIQUE unique_1 (mobile)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
