@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+ <mapper namespace="com.sinowel.community.service.impl.CommunityMangerServiceImpl">
+    <select id="getFlowPackageByUserId" resultType="Map" parameterType="Map">
+        SELECT IFNULL(t1.friendNum, 0) AS friendNum, IFNULL(t2.messageNum, 0) AS messageNum, coin.available_amount AS availableAmount,
+        CASE user.is_bound_mobile WHEN 0 THEN 'Y' WHEN 1 THEN 'N' END isBoundMobile, 
+        CASE user.is_binding_mobile WHEN 0 THEN 'N' WHEN 1 THEN 'Y' END isBindingMobile, 
+        user.mobile_no AS mobileNo, coin.open_id AS openId
+        FROM USER user 
+        INNER JOIN user_account coin ON user.open_id = coin.open_id 
+        LEFT JOIN 
+        (SELECT COUNT(friend.open_id) AS friendNum, friend.open_id AS openId FROM 
+        user_friend friend WHERE friend.open_id = '${params[0]}') t1 ON t1.openId = user.open_id
+        LEFT JOIN 
+        (SELECT COUNT(message.open_id) AS messageNum, message.open_id AS openId FROM 
+        user_message message WHERE message.open_id = '${params[0]}' AND message.is_viewed = 0 AND message.is_deleted = 0) t2 ON t2.openId = user.open_id
+        WHERE user.open_id = '${params[0]}'
+    </select>     
+    <select id="getAwardRuleDetailById" resultType="Map" parameterType="Map">
+        SELECT rule_value AS awardValue FROM award_rule WHERE id = ${params[0]}
+    </select> 
+    <select id="getCommunityBillById" resultType="Map" parameterType="Map">
+        SELECT coin.available_amount AS availableAmount, coin.in_amount AS inAmount, coin.out_amount AS outAmount 
+        FROM user_account coin WHERE coin.open_id = '${params[0]}'
+    </select>
+     <select id="getUserBillListById" parameterType="Map" resultType="com.sinowel.community.domain.CommunityUserBillDetailEntity">
+    <![CDATA[
+        SELECT detail.in_out_flag AS inOutFlag, IFNULL(detail.description, '') AS description,
+               detail.amount, DATE_FORMAT(detail.create_time, '%Y-%m-%d %T') AS createTime
+        FROM user_account_record detail 
+        WHERE detail.open_id = #{openId}
+        ORDER BY detail.create_time DESC 
+        LIMIT #{start},#{length}
+          ]]>    
+    </select>
+    
+    <select id="getUserFriendListById" parameterType="Map" resultType="com.sinowel.community.domain.CommunityUserFriendEntity">
+    <![CDATA[
+        SELECT friend.friend_open_id AS friendOpenId,
+            user.nick_name AS nickName, friend.last_contact AS lastContact, user.headimg_url as headimgUrl
+        FROM user_friend friend INNER JOIN USER user ON friend.friend_open_id=user.open_id    
+        WHERE friend.open_id= #{openId}
+        ORDER BY friend.create_time DESC 
+        LIMIT #{start},#{length}
+          ]]>
+    </select>
+    
+    <select id="getTransferRecordsById" parameterType="Map" resultType="com.sinowel.community.domain.CommunityReceiveCodeEntity2">
+    <![CDATA[
+        SELECT * FROM 
+		(SELECT 'S' AS type , DATE_FORMAT(used_time, '%Y-%m-%d %T') AS usedTime , coin_amount AS coinAmount
+		FROM flow_gift WHERE (STATUS = 1 OR STATUS = 3) AND user_open_id = #{openId} AND friend_open_id = #{friendOpenId}
+		UNION ALL
+		SELECT 'R' AS type , DATE_FORMAT(used_time, '%Y-%m-%d %T') AS usedTime , coin_amount AS coinAmount
+		FROM flow_gift WHERE (STATUS = 1 OR STATUS = 3) AND user_open_id = #{friendOpenId} AND friend_open_id = #{openId}) code
+		ORDER BY code.usedTime DESC
+          ]]>
+    </select>
+    
+    <select id="getMessageRecordsById" parameterType="Map" resultType="com.sinowel.community.domain.UserMessageEntity">
+    <![CDATA[
+        SELECT id, open_id AS openId, content, DATE_FORMAT(create_time, '%Y-%m-%d %T') AS createTime, is_viewed AS isViewed 
+            FROM user_message WHERE open_id = #{openId} AND is_deleted = 0 
+            ORDER BY create_time DESC LIMIT #{start},#{length}
+          ]]>
+    </select>
+    
+    <select id="getCommunityMobileVerifyCode" statementType="CALLABLE" parameterType="map">
+        { call create_community_mobile_verify_code(#{openId,mode=IN,jdbcType=VARCHAR},#{mobileNo,mode=IN,jdbcType=VARCHAR},#{appId,mode=IN,jdbcType=VARCHAR},#{codeType,mode=IN,jdbcType=INTEGER},#{rtnStr,mode=OUT,jdbcType=VARCHAR},#{smsContent,mode=OUT,jdbcType=VARCHAR})}
+    </select>
+    <select id="getListByFlowId" parameterType="Map" resultType="com.sinowel.community.dto.RechargeFlowPackageGearDto">
+ 	SELECT (SELECT COMPANY_NAME FROM operator_info WHERE id = COMPANY_ID) AS operator,flow_size AS flowSize 
+ 	FROM system_flow WHERE SYSTEM_FLOW_CODE = ${params[0]}
+    </select>
+    
+    <select id="bindTelephoneNumber" statementType="CALLABLE" parameterType="map">
+        { call bind_telephone_number(#{openId,mode=IN,jdbcType=VARCHAR},#{mobileNo,mode=IN,jdbcType=VARCHAR},#{validateCode,mode=IN,jdbcType=VARCHAR},#{awardRuleDetailId,mode=IN,jdbcType=VARCHAR},#{appId,mode=IN,jdbcType=VARCHAR},#{systemTime,mode=IN,jdbcType=VARCHAR},#{rtnStr,mode=OUT,jdbcType=VARCHAR})}
+    </select>
+    
+    <select id="unbindTelephoneNumber" statementType="CALLABLE" parameterType="map">
+        { call unbind_telephone_number(#{openId,mode=IN,jdbcType=VARCHAR},#{mobileNo,mode=IN,jdbcType=VARCHAR},#{validateCode,mode=IN,jdbcType=VARCHAR},#{systemTime,mode=IN,jdbcType=VARCHAR},#{rtnStr,mode=OUT,jdbcType=VARCHAR})}
+    </select>
+    
+</mapper>

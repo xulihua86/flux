@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sinowel.community.domain.CommunityUserEntity">
+                   
+    <insert id="insert" parameterType="CommunityUserEntity">
+            INSERT IGNORE INTO  user(
+				open_id,
+				nick_name,
+				user_type,
+				is_locked,
+				is_bound_mobile,
+				is_binding_mobile,
+				mobile_no,
+				gender,
+				city,
+				province,
+				area,
+				language,
+				headimg_url,
+				remark,
+				create_time,
+				modify_time,
+				subscribe_time,
+				app_id
+             ) 
+            VALUES (
+				#{openId},
+				#{nickName},
+				#{userType},
+				#{isLocked},
+				#{isBindMobile},
+				#{isBindingMobile},
+				#{mobileNo},
+				#{gender},
+				#{city},
+				#{province},
+				#{area},
+				#{language},
+				#{headimgUrl},
+				#{remark},
+				#{createTime},
+				#{modifyTime},
+				#{subscribeTime},
+				#{appId}
+			)
+    </insert>
+	<update id="update" parameterType="CommunityUserEntity">
+    	<![CDATA[
+			UPDATE user SET
+		]]>	
+  			<if test="nickName!=null and nickName!=''">
+				nick_name = #{nickName},
+			</if>
+			<if test="userType!=null">
+				user_type = #{userType,jdbcType=INTEGER},
+			</if>
+   			<if test="isLocked!=null">
+				is_locked = #{isLocked,jdbcType=INTEGER},
+			</if>
+  			<if test="isBindMobile!=null">
+				is_bound_mobile = #{isBindMobile,jdbcType=INTEGER},
+			</if>
+            <if test="isBindingMobile!=null">
+				is_binding_mobile = #{isBindingMobile,jdbcType=INTEGER},
+			</if>
+			 <if test="mobileNo!=null and mobileNo!=''">
+				mobile_no = #{mobileNo},
+			</if>
+			 <if test="gender!=null and gender!=''">
+				gender = #{gender},
+			</if>
+			 <if test="city!=null and city!=''">
+				city = #{city},
+			</if>
+			 <if test="province!=null and province!=''">
+				province = #{province},
+			</if>
+			 <if test="area!=null and area!=''">
+				area = #{area},
+			</if>
+			 <if test="language!=null and language!=''">
+				language = #{language},
+			</if>
+			 <if test="headimgUrl!=null and headimgUrl!=''">
+				headimg_url = #{headimgUrl},
+			</if>
+			 <if test="remark!=null and remark!=''">
+				remark = #{remark},
+			</if>
+			 <if test="appId!=null and appId!=''">
+				app_id = #{appId},
+			</if>
+			 <if test="modifyTime!=null and modifyTime!=''">
+				modify_time = #{modifyTime}
+			</if>
+		<![CDATA[
+			 WHERE open_id=#{openId}    	
+    	]]>
+    </update>
+    <select id="get" resultType="CommunityUserEntity" parameterType="Map">
+    	SELECT  user_id AS userId,
+    	        open_id AS openId,
+				nick_name AS nickName,
+				user_type AS userType,
+				is_locked AS isLocked,
+				is_bound_mobile AS isBindMobile,
+				is_binding_mobile AS isBindingMobile,
+				mobile_no AS mobileNo,
+				gender AS gender,
+				city AS city,
+				province AS province,
+				area AS area,
+				language AS language,
+				headimg_url AS headimgUrl,
+				remark AS remark,
+				app_id AS appId,
+				create_time AS createTime,
+				modify_time AS modifyTime,
+				subscribe_time AS subscribeTime FROM user WHERE open_id = #{openId}
+    </select>
+    <select id="getUserAcountByOpenId" resultType="int" parameterType="Map">
+    	SELECT COUNT(*) num FROM user WHERE open_id = #{openId}
+    </select>
+    <select id="checkUserIsLock" resultType="int" parameterType="Map">
+    	SELECT COUNT(*) as num FROM user WHERE open_id = #{openId} and is_locked = 0
+    </select>
+    <select id="checkIsRestore" resultType="int" parameterType="Map">
+    	SELECT COUNT(*) num FROM coin_to_flow_product_order WHERE order_id = #{orderId} AND status = 3 
+    </select>
+    <update id="changeIslocked" parameterType="map">
+        <![CDATA[
+            UPDATE user
+            SET is_locked = 1,
+                modify_time=now()
+            WHERE open_id in 
+              ]]>
+        <foreach collection="params" index="index" item="item" open="(" separator="," close=")"> 
+            #{item}
+        </foreach> 
+      
+    </update>
+     <update id="changeUserUnlock" parameterType="Map">
+       <![CDATA[
+             UPDATE USER
+            SET is_locked = 0,
+                modify_time=NOW()
+            WHERE is_locked = 1
+            AND open_id =(
+        SELECT open_id FROM  user_lock_record WHERE 
+         id IN (SELECT MAX(id) FROM user_lock_record GROUP BY open_id )
+          AND  UNIX_TIMESTAMP(create_time) <= UNIX_TIMESTAMP(NOW()) - 24*60*60*7)
+         ]]>
+    </update>
+</mapper>
