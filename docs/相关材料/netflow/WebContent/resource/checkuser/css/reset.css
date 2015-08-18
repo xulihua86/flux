@@ -1,0 +1,70 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+    font-family: "宋体",Arial,Helvetica,sans-serif;
+}
+.main_902px{
+	margin:0 auto;
+	width:902px;
+}
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+ul, ol {
+    list-style: none outside none;
+}
+header li, footer li{
+	float: left;
+}
+
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+.clear{
+	clear:both;
+}
+.float_left{
+	float:left;
+}
+.float_right{
+	float:right;
+}
+font-size{
+	
+}
+/*公用样式*/
+.lfloat{
+        float:left;
+        display: inline;
+}
+.rfloat{
+        float:right;
+        display: inline;
+}
+.clearfix:before, 
+.clearfix:after { 
+  content: ""; 
+  display: table; 
+}
+.clearfix:after { 
+  clear: both; 
+  overflow:hidden;
+}
+.clearfix { 
+  zoom: 1; 
+}
+.clear{
+	clear:both;
+}
+.relative{
+	position:relative;
+}
+.absolute{
+	position:absolute;
+}

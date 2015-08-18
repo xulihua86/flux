@@ -1,0 +1,42 @@
+@charset "utf-8";
+/* CSS Document */
+body{ background-color:#fdf2dc;}
+.am-w1{ color:#666666; line-height:120%;}
+.am-jl1{ position:absolute; top:320px; padding-left:5em;}
+.amjl2 li{ width:100px; height:auto;float:left;}
+.amjl2{ width:100%; }
+
+
+.am-head_bg{ background: url(../../images/bg1.png) repeat-x 0px 0px; background-size: auto 99%;}
+.am-foot_bg{ background: url(../../images/bg2.png) repeat-x left bottom; position:fixed; bottom:0; background-size: auto 100%; width:100%; line-height:120%; height:100px; padding-top:4em; color:#FFF;}
+.am-con_bg{ padding-top:1.5em;}
+.am-foot_bg a{color:#FFF; text-decoration:none;}
+.am-foot_bg {text-decoration:none;}
+.am-footer-switch{ background:none;}
+.am-footer-switch a{ color:#840412;}
+.am-footer-divider{ color:#840412;}
+.am-btn_bg{ padding-left:1em; padding-right:1em;}
+a.am-btn_bg1{ background: url(../../images/bg4.png) repeat-x 0px 0px; background-size: auto 99%; color:#FFF; width:45%;}
+a:hover.am-btn_bg1{ background: url(../../images/bg6.png) repeat-x 0px 0px; background-size: auto 99%; color:#FFF; width:45%;}
+
+
+a.am-btn_bg2{ background: url(../../images/bg5.png) repeat-x 0px 0px; background-size: auto 99%; color:#FFF; width:45%;}
+a:hover.am-btn_bg2{ background: url(../../images/bg7.png) repeat-x 0px 0px; background-size: auto 99%; color:#FFF; width:45%;}
+
+a.am-btn_bg3{ background: url(../../images/bg4.png) repeat-x 0px 0px; background-size: auto 99%; color:#FFF; width:100%;}
+a:hover.am-btn_bg3{ background: url(../../images/bg5.png) repeat-x 0px 0px; background-size: auto 99%; color:#FFF; width:100%;}
+.am-btn_bg3 a{ color:#FFF;}
+
+.am-btn_bg4{ width:100%; height:30px;background: url(../../images/bg6.png) repeat-x 0px 0px; background-size: auto 99%; color:#FFF; line-height:120%; padding-bottom:10px;}
+
+
+/* 2015.3.2 add */
+.add_bg_mobile{width:50%;margin:10% auto;}
+.add_bg_mobile img,.add_hint_inf img,.add_bg_limits img{max-width:100%;}
+.add_hint_inf{width:60%;margin:0 auto;}
+.add_hint_inf p{color:#666;margin:15px 0 0;}
+.add_othertxt{padding:0 10%;text-align:center;}
+.add_othertxt li{border:0;background-color:transparent;color:#666;line-height:2em;}
+.add_bg_limits{width:60%;margin:40% auto 0;}
+.add_bg_limits p{margin-top:10%;color:#ff5b58;font-size:1.8rem;}
+.am_body_bg{ background:#b70e13;}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>绑定手机号</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>  
+  <link rel="stylesheet" href="assets/css/body_style.css"/>
+</head>
+<body>
+<div class="am-g am-top1">
+<span class="am-u-center">您拥有<b class="c1 fon3">500</b>流量币</span><br /><br />
+<form class="am-form">
+  <fieldset>
+    <div class="am-form-group">
+     <label for="doc-ipt-email-1">请输入11位手机号码</label>
+     <input type="text" placeholder="手机号码">
+    </div>
+
+   <div class="am-form-group">
+      <label class="am-radio-inline">
+        <input type="radio"  value="" name="docInlineRadio"> 本月生效
+      </label>
+      <label class="am-radio-inline">
+        <input type="radio" name="docInlineRadio"> 下月生效
+      </label>
+ 
+    </div>
+
+    <div class="am-form-group">
+     <button class="am-btn am-btn-warning am-btn-block" id="doc-confirm-toggle">选择充值档位</button>
+    </div>
+
+    <span class="am-u-center">兑换30MB流量,花费流量币300个</span><br /><br /><br /><br /><br />
+    
+    <div class="am-form-group">
+     <button class="am-btn am-btn-success am-btn-block" id="doc-confirm-toggle">充值</button>
+    </div>
+ <!--点击充值后弹出框代码-->
+<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+  <div class="am-modal-dialog">
+    <div class="am-modal-bd">
+     充值30M流量到136 9039 4945<br />  花费流量币300<br />即时生效
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+    </div>
+  </div>
+</div>
+
+
+</fieldset>
+</form>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/polyfill/rem.min.js"></script>
+<script src="assets/js/polyfill/respond.min.js"></script>
+<script src="assets/js/amazeui.legacy.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/amazeui.min.js"></script>
+<!--<![endif]-->
+</body>
+</html>

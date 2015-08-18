@@ -1,0 +1,20 @@
+/*reset*/
+li { list-style: none; }
+img { border: 0; }
+a{ outline:none; color:#000; text-decoration:none;}
+.hide{ display:none;}
+/*content*/
+.squared li span,#return{ background:url(../images/sprite.png) no-repeat 0 0; background-size:129px 52px;}
+.header{ height:42px; background:#fefdf9; border-bottom:1px solid #ffffff;  color:#1f1f1f; font-size:18px; line-height:42px; font-weight:bold; text-align:center;}
+#menu{ float:right; cursor:pointer; padding-right:10px;  padding-top:20px; height:42px;}
+#menu ins{ display:inline-block; margin-left:4px; width:0; height:0; border:6px solid #ffffff; border-top-color:#1f1f1f; vertical-align:middle}
+#guide{ position:absolute; left:0; top:30px; font-size:14px; color:#1f1f1f; text-align:left; line-height:40px; width:100%;box-shadow: 0px 2px 2px #787878; background:#fff; z-index:100; overflow:hidden; display:none;}
+#guide dt{ font-size:18px; line-height:30px; margin-left:10px; border-top:1px solid #e1e1e1; padding-top:4px;}
+#guide dd{ line-height:30px; margin-left:10px; margin-top:20px; padding-bottom:6px; overflow:hidden;}
+.page-1-1 .img_3 {height:42px; width:183px; position:relative; margin-left:auto; margin-right:auto; margin-top:25px;}
+
+
+
+
+
+

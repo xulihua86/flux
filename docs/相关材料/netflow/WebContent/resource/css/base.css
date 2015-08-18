@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0; padding:0;}
+/*==定位==*/
+.pr{position:relative;}
+.pa{position:absolute;}
+.bc{margin-left:auto; margin-right:auto;}
+/*==宽度==*/
+.w183{width:183px;}
+.w256{width:256px;}
+.w463{width:463px;}
+.w484{width:484px;}
+.wp100{width:100%}
+/*==高度==*/
+.h42{height:42px;}
+.h66{height:66px;}
+.h101{height:101px;}
+.h224{height:224px;}
+.h363{height:363px;}
+.h534{height:534px;}
+.h590{height:590px;}
+/*==内边距==*/
+.pl24{padding-left:24px;}
+/*==外边距==*/
+.mt30{margin-top:30px;}
