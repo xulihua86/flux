@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.flux.util.ConfigUtil;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -19,7 +21,7 @@ public class ModRedisCenter {
 	
 	private static ModRedisCenter instance = null;
 	
-	public static final String redisHostPort = "127.0.0.1:6379";  // 127.0.0.1:8282,127.0.0.1:8283
+	public static final String redisHostPort = ConfigUtil.getStringValue("redisHostPorts");  // 127.0.0.1:8282,127.0.0.1:8283
 	
 	private ModRedisCenter() {
 		initialPool();
