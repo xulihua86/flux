@@ -34,13 +34,14 @@ public class SignServiceImpl extends BaseServiceImpl<Sign>implements SignService
 
 	@Override
 	public Map<String,Object> save(long userId){
-		long count = this.getCount(userId);
+		Sign sign = this.getSignInstance(userId);
+		long count = signMapper.getCount(sign);
 		if(count > 0){
 			return MapResult.initMap(BaseResult.REPEAT_OPERATE.getCode(),
 					BaseResult.REPEAT_OPERATE.getMsg());
 		}
 		
-		signMapper.add(this.getSignInstance(userId));
+		signMapper.add(sign);
 		return MapResult.initMap(BaseResult.SUCCESS.getCode(),
 				BaseResult.SUCCESS.getMsg());
 	}
@@ -64,7 +65,7 @@ public class SignServiceImpl extends BaseServiceImpl<Sign>implements SignService
 		sign.setCreateTime(System.currentTimeMillis());
 		sign.setUserId(userId);
 		sign.setYyyymm(DateUtil.getIntFromCurrent(date, "yyyyMM"));
-		sign.setYyyymmdd(DateUtil.getIntFromDate(date, "yyyyMMDD"));
+		sign.setYyyymmdd(DateUtil.getIntFromCurrent(date, "yyyyMMdd"));
 		return sign;
 	}
 	
