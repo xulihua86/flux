@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.github.flux.mapper.SignMapper" >
+<mapper namespace="com.github.flux.mapper.SignMapper">
 
-  <resultMap id="BaseResultMap" type="com.github.flux.entity.Sign" >
-    <id column="sign_id" property="signId" jdbcType="BIGINT" />
-    <result column="user_id" property="userId" jdbcType="BIGINT" />
-    <result column="yyyymm" property="yyyymm" jdbcType="INTEGER" />
-    <result column="yyyymmdd" property="yyyymmdd" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="BIGINT" />
-  </resultMap>
-  
-  <sql id="Base_Column_List" >
-    sign_id signId, user_id userId, yyyymm, yyyymmdd, create_time createTime
-  </sql>
-  
-  
-  <select id="query" resultType="Sign" parameterType="java.util.HashMap">
+	<resultMap id="BaseResultMap" type="com.github.flux.entity.Sign">
+		<id column="sign_id" property="signId" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="yyyymm" property="yyyymm" jdbcType="INTEGER" />
+		<result column="yyyymmdd" property="yyyymmdd" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="BIGINT" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		sign_id signId, user_id userId, yyyymm, yyyymmdd,
+		create_time createTime
+	</sql>
+
+
+	<select id="query" resultType="Sign" parameterType="java.util.HashMap">
 		select
 		<include refid="Base_Column_List" />
 		from sign
 		<where>
-			
+
 		</where>
 		order by create_time desc
 	</select>
@@ -31,46 +32,69 @@
 		from sign
 		order by create_time desc
 	</select>
-  
-  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from sign
-    where sign_id = #{signId,jdbcType=BIGINT}
-  </select>
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sign
+		where sign_id = #{signId,jdbcType=BIGINT}
+	</select>
 
 
-  <delete id="deleteById" parameterType="java.lang.Long" >
-    delete from sign
-    where sign_id = #{signId,jdbcType=BIGINT}
-  </delete>
-  
-  
-  <insert id="add" parameterType="com.github.flux.entity.Sign" useGeneratedKeys="true" keyProperty="sign_id">
-    insert into sign (sign_id, user_id, yyyymm, 
-      yyyymmdd, create_time)
-    values (#{signId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{yyyymm,jdbcType=INTEGER}, 
-      #{yyyymmdd,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT})
-  </insert>
-  
-  <update id="update" parameterType="com.github.flux.entity.Sign" >
-    
-    update sign
-    <set >
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="yyyymm != null" >
-        yyyymm = #{yyyymm,jdbcType=INTEGER},
-      </if>
-      <if test="yyyymmdd != null" >
-        yyyymmdd = #{yyyymmdd,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=BIGINT},
-      </if>
-    </set>
-    where sign_id = #{signId,jdbcType=BIGINT}
-  </update>
-  
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from sign
+		where
+		sign_id = #{signId,jdbcType=BIGINT}
+	</delete>
+
+
+	<insert id="add" parameterType="com.github.flux.entity.Sign"
+		useGeneratedKeys="true" keyProperty="sign_id">
+		insert into sign (sign_id,
+		user_id, yyyymm,
+		yyyymmdd, create_time)
+		values
+		(#{signId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
+		#{yyyymm,jdbcType=INTEGER},
+		#{yyyymmdd,jdbcType=INTEGER},
+		#{createTime,jdbcType=BIGINT})
+	</insert>
+
+	<update id="update" parameterType="com.github.flux.entity.Sign">
+
+		update sign
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="yyyymm != null">
+				yyyymm = #{yyyymm,jdbcType=INTEGER},
+			</if>
+			<if test="yyyymmdd != null">
+				yyyymmdd = #{yyyymmdd,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=BIGINT},
+			</if>
+		</set>
+		where sign_id = #{signId,jdbcType=BIGINT}
+	</update>
+
+	<select id="get" resultType="Sign" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sign
+		where user_id = #{userId,jdbcType=BIGINT}
+	</select>
+
+	<select id="getCount" resultType="java.lang.Long" parameterType="com.github.flux.entity.Sign">
+		select count(1) from sign where 1=1
+		<if test="userId != null">
+			and user_id = #{userId,jdbcType=BIGINT}
+		</if>
+		<if test="yyyymmdd != null">
+			and yyyymmdd = #{yyyymmdd,jdbcType=INTEGER}
+		</if>
+	</select>
+
 </mapper>

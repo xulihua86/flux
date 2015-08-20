@@ -542,6 +542,14 @@ public class DateUtil {
 		}
 		return b;
 	}
+	
+	public static int getIntFromCurrent(Date date, String type){
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(type);
+		String str = sdf.format(date);
+		int value = Integer.parseInt(str);
+		return value;
+	}
 
 	public static void main(String[] args) {
 		/**

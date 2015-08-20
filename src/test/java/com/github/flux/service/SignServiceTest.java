@@ -1,5 +1,7 @@
 package com.github.flux.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -24,6 +26,22 @@ public class SignServiceTest {
 		m.setYyyymm(201412);
 		m.setYyyymmdd(20141201);
 		signService.add(m);
+		
+	}
+	
+	@Test
+	public void getTest() {
+        long userId = 11l;
+		List<Sign> list = signService.get(userId);
+		System.out.println(list.size());
+		
+	}
+	
+	@Test
+	public void getCountTest() {
+        long userId = 0;
+		long count = signService.getCount(userId);
+		System.out.println(count);
 		
 	}
 }
