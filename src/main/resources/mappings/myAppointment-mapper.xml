@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.github.flux.mapper.MyAppointmentMapper" >
+<mapper namespace="com.github.flux.mapper.MyAppointmentMapper">
 
-  <resultMap id="BaseResultMap" type="com.github.flux.entity.MyAppointment" >
-    
-    <id column="my_id" property="myId" jdbcType="BIGINT" />
-    <result column="appointment_id" property="appointmentId" jdbcType="BIGINT" />
-    <result column="userid" property="userid" jdbcType="BIGINT" />
-    <result column="type" property="type" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="BIGINT" />
-  </resultMap>
-  
-  
-  <sql id="Base_Column_List" >
-    my_id myId, appointment_id appointmentId, userid, type, create_time createTime
-  </sql>
-  
-  
-   <select id="query" resultType="MyAppointment" parameterType="java.util.HashMap">
+	<resultMap id="BaseResultMap" type="com.github.flux.entity.MyAppointment">
+
+		<id column="my_id" property="myId" jdbcType="BIGINT" />
+		<result column="appointment_id" property="appointmentId"
+			jdbcType="BIGINT" />
+		<result column="userid" property="userid" jdbcType="BIGINT" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="BIGINT" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		my_id myId, appointment_id appointmentId, userid, type,
+		create_time
+		createTime
+	</sql>
+
+
+	<select id="query" resultType="MyAppointment" parameterType="java.util.HashMap">
 		select
 		<include refid="Base_Column_List" />
 		from my_appointment
 		<where>
-			
+
 		</where>
 		order by create_time desc
 	</select>
@@ -33,47 +36,64 @@
 		from my_appointment
 		order by create_time desc
 	</select>
-  
-  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from my_appointment
-    where partake_id = #{partakeId,jdbcType=BIGINT}
-  </select>
-  
-  
-  <delete id="deleteById" parameterType="java.lang.Long" >
-    delete from my_appointment
-    where partake_id = #{partakeId,jdbcType=BIGINT}
-  </delete>
-  
-  
-  <insert id="add" parameterType="com.github.flux.entity.MyAppointment" useGeneratedKeys="true" keyProperty="my_id">
-    insert into my_appointment (appointment_id, userid, 
-      type, create_time)
-    values (#{appointmentId,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
-      #{type,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT})
-  </insert>
-  
-  
-  <update id="update" parameterType="com.github.flux.entity.MyAppointment" >
-    
-    update my_appointment
-    <set >
-      <if test="appointmentId != null" >
-        appointment_id = #{appointmentId,jdbcType=BIGINT},
-      </if>
-      <if test="userid != null" >
-        userid = #{userid,jdbcType=BIGINT},
-      </if>
-      <if test="type != null" >
-        type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=BIGINT},
-      </if>
-    </set>
-    where partake_id = #{partakeId,jdbcType=BIGINT}
-  </update>
-  
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from my_appointment
+		where partake_id = #{partakeId,jdbcType=BIGINT}
+	</select>
+
+
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from my_appointment
+		where partake_id = #{partakeId,jdbcType=BIGINT}
+	</delete>
+
+
+	<insert id="add" parameterType="com.github.flux.entity.MyAppointment"
+		useGeneratedKeys="true" keyProperty="my_id">
+		insert into my_appointment
+		(appointment_id, userid,
+		type, create_time)
+		values
+		(#{appointmentId,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT},
+		#{type,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT})
+	</insert>
+
+
+	<update id="update" parameterType="com.github.flux.entity.MyAppointment">
+
+		update my_appointment
+		<set>
+			<if test="appointmentId != null">
+				appointment_id = #{appointmentId,jdbcType=BIGINT},
+			</if>
+			<if test="userid != null">
+				userid = #{userid,jdbcType=BIGINT},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=BIGINT},
+			</if>
+		</set>
+		where partake_id = #{partakeId,jdbcType=BIGINT}
+	</update>
+
+	<select id="getCount" resultType="java.lang.Long"
+		parameterType="com.github.flux.entity.MyAppointment">
+		select count(1) from my_appointment where 1=1
+		<if test="appointmentId != null">
+			and appointment_id = #{appointmentId,jdbcType=BIGINT}
+		</if>
+		<if test="userid != null">
+			and userid = #{userid,jdbcType=BIGINT}
+		</if>
+		<if test="type != null">
+			and type = #{type,jdbcType=INTEGER}
+		</if>
+	</select>
+
 </mapper>

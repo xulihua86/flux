@@ -129,7 +129,7 @@ create table my_appointment(
 	userid bigint(20) not null,
 	type int(1) not null comment '(0 报名 1 关注)',
 	create_time bigint(20) not null comment '报名的时间',
-	PRIMARY KEY  (partake_id)
+	PRIMARY KEY  (my_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
