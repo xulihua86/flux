@@ -14,6 +14,6 @@ public interface AppointmentService extends BaseService<Appointment> {
 	 * @param AppointmentId   约会id
 	 * @return
 	 */
-	public Appointment get(Long AppointmentId);
+	public Appointment get(Long appointmentId);
 
 }

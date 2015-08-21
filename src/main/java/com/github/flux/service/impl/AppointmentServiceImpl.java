@@ -62,7 +62,7 @@ public class AppointmentServiceImpl extends BaseServiceImpl<Appointment>
 	}
 
 	@Override
-	public Appointment get(Long AppointmentId) {
+	public Appointment get(Long appointmentId) {
 		Appointment app = new Appointment();
 		app.setBeginTime(DateUtil.str2Date("2015-08-30 12:12:12", "yyyy-MM-dd HH:mm:ss").getTime());
 		app.setCreateTime(System.currentTimeMillis());
