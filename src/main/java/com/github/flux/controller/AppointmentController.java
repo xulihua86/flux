@@ -141,7 +141,7 @@ public class AppointmentController extends BaseController {
 	
 	
 	/**
-	 * 删除约会
+	 * 删除约会  /删除my_appointment表
 	 * @param request
 	 * @param appointmentId
 	 * @return
