@@ -190,7 +190,7 @@ public class CookiesUtil {
     if (StringUtils.isNotEmpty(cookieValue)) {
       // userId|deviceType|deviceId|token|lastLoginTime|appVer
       String[] decryptValue = cookieValue.split("[|]", 6);
-      if (decryptValue.length == 7) {
+      if (decryptValue.length == 6) {
         return Long.parseLong(decryptValue[0]);
       }
     }

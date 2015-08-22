@@ -20,7 +20,7 @@ public class BaseResult {
   public static final BaseResult SERVER_ERROR = new BaseResult(18, "网络或服务异常，请稍后再试");
 
   public static final BaseResult EMPTY_PARAMS = new BaseResult(19, "入参不能为空");
-  public static final BaseResult BATCH_SAVE_FAILED = new BaseResult(20, "idlist批量处理，部份失败");
+  public static final BaseResult BATCH_SAVE_FAILED = new BaseResult(20, "批量处理，部份失败");
   public static final BaseResult ACCOUNT_USER_NOT_LOGIN = new BaseResult(21, "请重新登录后再试");
   public static final BaseResult SENSITIVE_SERVER_ERROR = new BaseResult(22, "敏感词服务器异常，请稍后再试。");
   public static final BaseResult SENSITIVE_EXIST_ERROR = new BaseResult(23, "输入的字段包含敏感词");
