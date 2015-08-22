@@ -36,6 +36,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 		return userMapper;
 	}
 
+	// 手机， uuid, 验证码登录
 	public Map<String, Object> login(String mobile, String uuid, String code){
 		
 		// 验证
@@ -65,7 +66,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 		
 		String token = RandomUtil.getUUID();
 		user.setToken(token);
-		user.setExpireTime(ConfigUtil.getLongValue("user.token.expireTime"));
+		// 指token失效时间
+		user.setExpireTime(System.currentTimeMillis() + ConfigUtil.getLongValue("user.token.expireTime"));
 		
 		// 放入缓存
 		key = "user:" + user.getUserid();
