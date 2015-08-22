@@ -14,4 +14,8 @@ public class FluxHelp {
 		return "valid:" + mobile + ":" + uuid;
 	}
 	
+	public static String getFollowKey(long userid) {
+		return "followme:" + userid;
+	}
+	
 }

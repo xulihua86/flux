@@ -1,5 +1,6 @@
 package com.github.flux.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -144,6 +145,7 @@ public class UserController extends BaseController {
 			@RequestParam(value = "value", required = true) String value,
 			@RequestParam(value = "pageNow", required = false) String pageNow,
 			@RequestParam(value = "pageSize", required = false) String pageSize) {
+		
 		// 检查
 		if (StringUtils.isEmpty(value)) {
 			return MapResult.initMap(BaseResult.INVALID_PARAMETER.getCode(), BaseResult.INVALID_PARAMETER.getMsg());
@@ -180,15 +182,76 @@ public class UserController extends BaseController {
 	}
 
 	
-	// follow 关注
+	/**
+	 * 显示用户信息
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/showUser")
+	public Map<String, Object> showUser(HttpServletRequest request,
+			@RequestParam(value = "userid", required = true) long userid
+		) {
+		if(userid == 0) return MapResult.initMap(BaseResult.INVALID_PARAMETER.getCode(), BaseResult.INVALID_PARAMETER.getMsg());
+		
+		long myuserid = CookiesUtil.getInstance().getUserId(request);
+		User user = userService.getByIdWithCache(userid);
+		boolean b = userService.isFollow(myuserid, userid);
+		
+		Map<String, Object> map = MapResult.successMap();
+		map.put("data", user);
+		map.put("isFollow", b);
+		return map;
+	}
+	
+	
+	/**
+	 * follow 关注
+	 * @param request
+	 * @param userid
+	 * @return  false|true
+	 */
 	@ResponseBody
 	@RequestMapping("/follow")
 	public Map<String, Object> follow(HttpServletRequest request,
 			@RequestParam(value = "userid", required = true) String userid) {
+		long userid_long = StringUtils.parseLong(userid);
+		if(userid_long == 0) {
+			return MapResult.failMap();
+		}
 		
-		
-		
-		return null;
+		Long myUserId = CookiesUtil.getInstance().getUserId(request);
+		boolean b = userService.follow(myUserId, userid_long);
+		Map<String, Object> map = MapResult.successMap();
+		map.put("data", b);
+		return map;
 	}
+	
+	/**
+	 * 我的关注列表
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/followList")
+	public Map<String, Object> followList(HttpServletRequest request,
+			@RequestParam(value = "followTime", required = false) long followTime,
+			@RequestParam(value = "pageSize", required = false) int pageSize
+			) {
+		// 检查
+		if(followTime == 0) followTime = Long.MAX_VALUE;
+		if(pageSize == 0) pageSize = 10;
+		long userid = CookiesUtil.getInstance().getUserId(request);
+		List<User> list = userService.followList(userid, followTime, pageSize);
+		
+		Map<String, Object> map = MapResult.successMap();
+		map.put("data", list);
+		
+		return map;
+	}
+	
+	
+	
+	
 	
 }

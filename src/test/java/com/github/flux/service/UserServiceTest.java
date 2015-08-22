@@ -104,4 +104,34 @@ public class UserServiceTest {
 		System.out.println(user);
 	}
 	
+	@Test
+	public void followTest() {
+		for(int i = 10; i < 50; i++) {
+			boolean b = userService.follow(1, i);
+			try {
+				Thread.sleep(2);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(b);
+		}
+	}
+	
+	@Test
+	public void followListTest(){
+		List<User> users = userService.followList(1, 1440264772415L, 10);
+		for(User user : users) {
+			System.out.println(user.getUserid() + "--" + user.getFollowTime());
+		}
+	}
+	
+	@Test
+	public void isFollowTest() {
+		boolean b = userService.isFollow(1l, 11l);
+		System.out.println(b);
+	}
+	
+	
+	
 }

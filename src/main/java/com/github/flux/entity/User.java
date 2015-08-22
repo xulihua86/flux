@@ -410,6 +410,17 @@ public class User implements Serializable {
 	public void setLocked(Integer locked) {
 		this.locked = locked;
 	}
+	
+	private Long followTime;
+	
+
+	public Long getFollowTime() {
+		return followTime;
+	}
+
+	public void setFollowTime(Long followTime) {
+		this.followTime = followTime;
+	}
 
 	@Override
 	public String toString() {
