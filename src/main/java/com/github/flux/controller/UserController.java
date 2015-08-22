@@ -8,28 +8,28 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.flux.base.FluxHelp;
 import com.github.flux.cache.RedisCache;
 import com.github.flux.entity.User;
+import com.github.flux.plugin.mybatis.plugin.PageView;
 import com.github.flux.service.UserService;
 import com.github.flux.util.CookiesUtil;
 import com.github.flux.util.RandomUtil;
+import com.github.flux.util.StringUtils;
 import com.github.flux.util.ValidUtil;
 import com.github.flux.util.result.BaseResult;
 import com.github.flux.util.result.MapResult;
-
-
 
 @Controller
 @RequestMapping("/rest/user")
 public class UserController extends BaseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-	
+
 	@Resource
 	private UserService userService;
 	@Resource
@@ -42,7 +42,7 @@ public class UserController extends BaseController {
 	 * @param mobile
 	 * @param uuid
 	 * @param code
-	 * @return
+	 * @return userid, token
 	 */
 	@ResponseBody
 	@RequestMapping("/login")
@@ -62,6 +62,7 @@ public class UserController extends BaseController {
 		if ((Integer) map.get("code") != 0) {
 			return MapResult.initMap(Integer.parseInt(map.get("code") + ""), map.get("msg").toString());
 		} else {
+
 			return map;
 		}
 
@@ -85,13 +86,14 @@ public class UserController extends BaseController {
 		String uuid = RandomUtil.getUUID();
 
 		// 保存 30 分钟过期
-		redisCache.setString("valid:" + mobile + ":" + uuid, code, 3 * 60);
+		redisCache.setString(FluxHelp.getValidCodeKey(mobile, uuid), code, 3 * 60);
 		Map<String, Object> result = MapResult.successMap();
 		result.put("code", code);
 		result.put("uuid", uuid);
 		return result;
 	}
 
+	// 更新用户信息
 	@ResponseBody
 	@RequestMapping("/update")
 	public Map<String, Object> uploadLogo(HttpServletRequest request,
@@ -118,14 +120,75 @@ public class UserController extends BaseController {
 			user.setSignature(signature);
 
 			userService.update(user);
+
 			return MapResult.successMap();
-			
+
 		} catch (Exception e) {
 			logger.error("", e);
 			return MapResult.failMap();
 		}
 	}
 
+	/**
+	 * 
+	 * @param request
+	 * @param value  手机号或nickname
+	 * @param pageNow
+	 * @param pageSize
+	 * @return  
+	 */
+	// 搜索
+	@ResponseBody
+	@RequestMapping("/search")
+	public Map<String, Object> search(HttpServletRequest request,
+			@RequestParam(value = "value", required = true) String value,
+			@RequestParam(value = "pageNow", required = false) String pageNow,
+			@RequestParam(value = "pageSize", required = false) String pageSize) {
+		// 检查
+		if (StringUtils.isEmpty(value)) {
+			return MapResult.initMap(BaseResult.INVALID_PARAMETER.getCode(), BaseResult.INVALID_PARAMETER.getMsg());
+		}
+		int pageNow_int = 1;
+		int pagesize_int = 10;
+
+		if (!StringUtils.isEmpty(pageNow)) {
+			pageNow_int = StringUtils.parseInt(pageNow);
+			if (pageNow_int == 0) {
+				pageNow_int = 1;
+			}
+		}
+		if (StringUtils.isNotEmpty(pageSize)) {
+			pagesize_int = StringUtils.parseInt(pageSize);
+			if (pagesize_int == 0) {
+				pagesize_int = 10;
+			}
+		}
+
+		try {
+			PageView pageView = new PageView(pageNow_int, pagesize_int);
+			User user = new User();
+			user.setMobile(value);
+			user.setNickname(value);
+			pageView = userService.query(pageView, user);
+			Map<String, Object> map = MapResult.successMap();
+			map.put("data", pageView);
+			return map;
+		} catch (Exception ex) {
+			logger.error("", ex);
+			return MapResult.failMap();
+		}
+	}
+
 	
+	// follow 关注
+	@ResponseBody
+	@RequestMapping("/follow")
+	public Map<String, Object> follow(HttpServletRequest request,
+			@RequestParam(value = "userid", required = true) String userid) {
+		
+		
+		
+		return null;
+	}
 	
 }

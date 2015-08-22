@@ -77,7 +77,7 @@ public class UploadController {
 				
 				User user = new User();
 				user.setUserid(userId);
-				user.setLogo(logo);;
+				user.setLogo(logo);
 				userService.update(user);
 				
 				map.put("code", BaseResult.SUCCESS.getCode());

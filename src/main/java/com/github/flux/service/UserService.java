@@ -10,7 +10,7 @@ public interface UserService extends BaseService<User> {
 	public Map<String, Object> login(String mobile, String uuid, String code);
 	
 	// 更新cache及db
-	public void updateWithCache(User user);
+	// public void updateWithCache(User user);
 	
 	// from cache if null from db and set cache
 	public User getByIdWithCache(Long userId);

@@ -35,7 +35,7 @@
 				mobile like '%${t.mobile}%'
 			</if>
 			<if test="t.nickname != null and t.nickname != ''">
-				and nickname like '%${t.nickname}%'
+				or nickname like '%${t.nickname}%'
 			</if>
 		</where>
 		order by userid desc

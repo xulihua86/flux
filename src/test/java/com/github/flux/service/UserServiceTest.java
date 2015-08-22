@@ -71,8 +71,8 @@ public class UserServiceTest {
 	public void queryTest(){
 		PageView pageView = new PageView(1, 10);
 		User user = new User();
-		user.setMobile("130");
-		user.setNickname("nn");
+		user.setMobile("130100");
+		user.setNickname("nn199");
 		pageView = userService.query(pageView, user);
 		System.out.println(pageView.getRowCount());
 		System.out.println(pageView.getRecords().size());	
@@ -81,7 +81,7 @@ public class UserServiceTest {
 	@Test
 	public void queryAllTest() {
 		User user = new User();
-		user.setMobile("130");
+		user.setMobile("130100");
 		user.setNickname("nn");
 		List<User> users = userService.queryAll(user);
 		System.out.println(users.size());
