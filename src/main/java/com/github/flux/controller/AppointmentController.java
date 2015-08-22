@@ -175,10 +175,10 @@ public class AppointmentController extends BaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/flow/get/{pageNo}/{pageSize}")
-	public Map<String, Object> getFlow(HttpServletRequest request,@PathVariable Integer pageNo, @PathVariable Integer pageSize) {
+	@RequestMapping("/flow/get/{sort}/{pageNo}/{pageSize}")
+	public Map<String, Object> getFlow(HttpServletRequest request,@PathVariable String sort,@PathVariable Integer pageNo, @PathVariable Integer pageSize) {
 		
-		logger.debug("pageNo:"+pageNo+"|pageSize:"+pageSize);
+		logger.debug("sort:"+sort+"|pageNo:"+pageNo+"|pageSize:"+pageSize);
 		Map<String, Object> map = null;
 		try {
 			
@@ -209,10 +209,10 @@ public class AppointmentController extends BaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/join/get/{pageNo}/{pageSize}")
-	public Map<String, Object> getJoin(HttpServletRequest request,@PathVariable Integer pageNo, @PathVariable Integer pageSize) {
+	@RequestMapping("/join/get/{sort}/{pageNo}/{pageSize}")
+	public Map<String, Object> getJoin(HttpServletRequest request,@PathVariable String sort,@PathVariable Integer pageNo, @PathVariable Integer pageSize) {
 		
-		logger.debug("pageNo:"+pageNo+"|pageSize:"+pageSize);
+		logger.debug("sort:"+sort+"|pageNo:"+pageNo+"|pageSize:"+pageSize);
 		Map<String, Object> map = null;
 		try {
 			
@@ -316,6 +316,37 @@ public class AppointmentController extends BaseController {
 			myAppointmentService.save(userId, appointmentId, 0);
 			map = MapResult.initMap(BaseResult.SUCCESS.getCode(),
 					BaseResult.SUCCESS.getMsg());
+		} catch (Exception e) {
+			logger.error("用户签到系统出现异常", e);
+			map = MapResult.initMap(BaseResult.SERVER_ERROR.getCode(),
+					BaseResult.SERVER_ERROR.getMsg());
+		}
+
+		return map;
+
+	}
+	
+	
+	/**
+	 * 留言
+	 * @param request
+	 * @param mesage   留言内容
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/mesage")
+	public Map<String, Object> mesage(HttpServletRequest request,@RequestParam(value = "mesage", required = true) String mesage) {
+		
+		logger.debug("mesage:"+mesage);
+		Map<String, Object> map = null;
+		try {
+			
+			
+			//Appointment app = appointmentService.get(appointmentId);
+			
+			map = MapResult.initMap(BaseResult.SUCCESS.getCode(),
+					BaseResult.SUCCESS.getMsg());
+			//map.put("data", app);
 		} catch (Exception e) {
 			logger.error("用户签到系统出现异常", e);
 			map = MapResult.initMap(BaseResult.SERVER_ERROR.getCode(),
