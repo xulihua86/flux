@@ -10,10 +10,12 @@
     <result column="template" property="template" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
+     <result column="tag_value" property="tagValue" jdbcType="VARCHAR" />
+    
   </resultMap>
   
   <sql id="Base_Column_List" >
-    msg_id msgId, userid, type, num, template, status, create_time createTime
+    msg_id msgId, userid, type, num, template, status, create_time createTime, tag_value tagValue
   </sql>
   
   
@@ -22,7 +24,9 @@
 		<include refid="Base_Column_List" />
 		from message
 		<where>
-			
+			<if test="t.userid != null and t.userid != ''">
+				userid = #{t.userid,jdbcType=BIGINT}
+			</if>
 		</where>
 		order by create_time desc
 	</select>
@@ -52,10 +56,10 @@
   <insert id="add" parameterType="com.github.flux.entity.Message" useGeneratedKeys="true" keyProperty="msg_id" >
     insert into message (userid, type, 
       num, template, status, 
-      create_time)
+      create_time, tag_value )
     values (#{userid,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, 
       #{num,jdbcType=BIGINT}, #{template,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=BIGINT})
+      #{createTime,jdbcType=BIGINT}, #{tagValue,jdbcType=VARCHAR})
   </insert>
   
 
@@ -79,6 +83,9 @@
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="tagValue != null" >
+        tag_value = #{tagValue,jdbcType=VARCHAR},
       </if>
     </set>
     where msg_id = #{msgId,jdbcType=BIGINT}

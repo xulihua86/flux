@@ -17,7 +17,12 @@ public class AuthInterceptor extends BaseAuthInterceptor {
 		controllerUriFilter.add("/rest/test");
 		controllerUriFilter.add("/web/getKaptchaImage");
 		controllerUriFilter.add("/web/upload");
-
+		controllerUriFilter.add("/rest/user/getVaildCode");
+		controllerUriFilter.add("/rest/user/login");
+		// controllerUriFilter.add("/rest/message/my");
+		controllerUriFilter.add("");
+		
+		
 	}
 
 	@Override

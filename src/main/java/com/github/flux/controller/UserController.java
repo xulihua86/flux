@@ -195,7 +195,9 @@ public class UserController extends BaseController {
 		if(userid == 0) return MapResult.initMap(BaseResult.INVALID_PARAMETER.getCode(), BaseResult.INVALID_PARAMETER.getMsg());
 		
 		long myuserid = CookiesUtil.getInstance().getUserId(request);
+		
 		User user = userService.getByIdWithCache(userid);
+		
 		boolean b = userService.isFollow(myuserid, userid);
 		
 		Map<String, Object> map = MapResult.successMap();

@@ -15,25 +15,27 @@ import org.springframework.ui.Model;
 import com.github.flux.util.ThreeDes;
 
 @ContextConfiguration(locations = { "classpath*:spring-application.xml", "classpath*:spring-servlet.xml" })
-public class LogControllerTest extends AbstractJUnit4SpringContextTests {
+public class MessageControllerTest extends AbstractJUnit4SpringContextTests {
 
 	protected Model model = new ExtendedModelMap();
-	protected MockHttpServletRequest req = new MockHttpServletRequest();
-	protected MockHttpServletResponse res = new MockHttpServletResponse();
+	protected MockHttpServletRequest request = new MockHttpServletRequest();
+	protected MockHttpServletResponse response = new MockHttpServletResponse();
 
 	@Resource
-	private LogRestController logRestController;
+	private MessageController messageController;
 
 	@Test
-	public void saveTest() {
-		String authorization = auth(60000006100L, "a7f9618e-eecf-40ce-8128-decaf4b882fb");
-		req.addHeader("Authorization", authorization);
-		req.setRequestURI("/rest/log/save");
+	public void myTest() {
+		String authorization = auth(1L, "a7f9618e-eecf-40ce-8128-decaf4b882fb");
+		request.addHeader("Authorization", authorization);
+		request.setRequestURI("/rest/message/my");
 		
-		Map<String, Object> map = logRestController.save(req, "hujh", "mod", "action");
+		Map<String, Object> map = messageController.myMessage(request, "1", "10");
+		
 		System.out.println(map);
 	}
-
+	
+	
 	// userId|deviceType|deviceId|token|lastLoginTime|appVer
 	private String auth(long userid, String token) {
 		String deviceType = "APH";
@@ -45,5 +47,6 @@ public class LogControllerTest extends AbstractJUnit4SpringContextTests {
 		String tmp = userid + "|" + deviceType + "|" + deviceId + "|" + token + "|" + lastLoginTime + "|" + appVer;
 		return ThreeDes.encrypt(tmp);
 	}
-
+	
+	
 }

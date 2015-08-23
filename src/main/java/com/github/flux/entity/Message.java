@@ -231,4 +231,22 @@ public class Message implements Serializable {
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
+    
+    private String tagValue;
+
+	public String getTagValue() {
+		return tagValue;
+	}
+
+	public void setTagValue(String tagValue) {
+		this.tagValue = tagValue;
+	}
+
+	@Override
+	public String toString() {
+		return "Message [msgId=" + msgId + ", userid=" + userid + ", type=" + type + ", num=" + num + ", template="
+				+ template + ", status=" + status + ", createTime=" + createTime + ", tagValue=" + tagValue + "]";
+	}
+    
+    
 }

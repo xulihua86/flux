@@ -149,7 +149,7 @@ create table message(
 	userid bigint(20) not null,
 	type int(1) not null comment '1 朋友转赠',
 	num  bigint(20),
-	template varchar(256), 
+	template varchar(512), 
 	status int(1) not null comment '当type 为 1时， 0 未领取 1 已领取',
 	create_time bigint(20) not null,
 	tag_value varchar(512) comment '存放标签和值的映射（json）后加的',
