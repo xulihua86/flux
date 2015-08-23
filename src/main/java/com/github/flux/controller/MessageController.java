@@ -17,6 +17,7 @@ import com.github.flux.plugin.mybatis.plugin.PageView;
 import com.github.flux.service.MessageService;
 import com.github.flux.util.CookiesUtil;
 import com.github.flux.util.StringUtils;
+import com.github.flux.util.result.BaseResult;
 import com.github.flux.util.result.MapResult;
 
 @Controller
@@ -24,26 +25,28 @@ import com.github.flux.util.result.MapResult;
 public class MessageController extends BaseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
-	
+
 	@Resource
 	private MessageService messageService;
-	
+
 	/**
 	 * 我的消息
+	 * 
 	 * @param request
-	 * @param pageNow 开始页
-	 * @param pageSize 每页
+	 * @param pageNow
+	 *            开始页
+	 * @param pageSize
+	 *            每页
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("/my")
 	public Map<String, Object> myMessage(HttpServletRequest request,
 			@RequestParam(value = "pageNow", required = false) String pageNow,
-			@RequestParam(value = "pageSize", required = false) String pageSize
-			){
+			@RequestParam(value = "pageSize", required = false) String pageSize) {
 		long myuserid = CookiesUtil.getInstance().getUserId(request);
 		// long myuserid = 1l;
-		
+
 		int pageNow_int = 1;
 		int pagesize_int = 10;
 
@@ -59,7 +62,7 @@ public class MessageController extends BaseController {
 				pagesize_int = 10;
 			}
 		}
-		try{
+		try {
 			PageView pageView = new PageView(pageNow_int, pagesize_int);
 			Message message = new Message();
 			message.setUserid(myuserid);
@@ -67,14 +70,32 @@ public class MessageController extends BaseController {
 			Map<String, Object> returnmap = MapResult.successMap();
 			returnmap.put("data", pageView);
 			return returnmap;
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			logger.error("", ex);
 			return MapResult.failMap();
 		}
 	}
-	
-	
-	
-	
-	
+
+	/**
+	 * 处理消息
+	 * @param request
+	 * @param msgId
+	 * @return true|false
+	 */
+	@ResponseBody
+	@RequestMapping("/receive")
+	public Map<String, Object> receive(HttpServletRequest request,
+			@RequestParam(value = "msgId", required = true) long msgId) {
+		// 检查
+		if(msgId == 0) {
+			return MapResult.initMap(BaseResult.INVALID_PARAMETER.getCode(), BaseResult.INVALID_PARAMETER.getMsg());
+		}
+		long myuserid = CookiesUtil.getInstance().getUserId(request);
+		
+		boolean b = messageService.receive(myuserid, msgId);
+		Map<String, Object> returnmap = MapResult.successMap();
+		returnmap.put("data", b);
+		return returnmap;
+	}
+
 }

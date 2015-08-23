@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.flux.mapper.DonationMapper" >
+
+  <resultMap id="BaseResultMap" type="com.github.flux.entity.Donation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="fromuserid" property="fromuserid" jdbcType="BIGINT" />
+    <result column="touserid" property="touserid" jdbcType="BIGINT" />
+    <result column="num" property="num" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="msg_id" property="msgId" jdbcType="BIGINT" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    id, fromuserid, touserid, num, create_time createTime, msg_id msgId
+  </sql>
+  
+  
+   <select id="query" resultType="Donation" parameterType="java.util.HashMap">
+		select
+		<include refid="Base_Column_List" />
+		from donation
+		<where>
+			
+		</where>
+		order by create_time desc
+	</select>
+
+	<select id="queryAll" resultType="Donation">
+		select
+		<include refid="Base_Column_List" />
+		from donation
+		order by create_time desc
+	</select>
+	
+	<select id="queryByMsg" resultType="Donation" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from donation
+		where msg_id = #{msgId,jdbcType=BIGINT}
+	</select>
+	
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from donation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  
+  <delete id="deleteById" parameterType="java.lang.Long" >
+    delete from donation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  
+  <insert id="add" parameterType="com.github.flux.entity.Donation" useGeneratedKeys="true" keyProperty="id">
+    insert into donation (fromuserid, touserid, 
+      num, create_time, msg_id
+      )
+    values (#{fromuserid,jdbcType=BIGINT}, #{touserid,jdbcType=BIGINT}, 
+      #{num,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, #{msgId,jdbcType=BIGINT}
+      )
+  </insert>
+  
+  
+  <update id="update" parameterType="com.github.flux.entity.Donation" >
+    update donation
+    <set >
+      <if test="fromuserid != null" >
+        fromuserid = #{fromuserid,jdbcType=BIGINT},
+      </if>
+      <if test="touserid != null" >
+        touserid = #{touserid,jdbcType=BIGINT},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="msgId != null" >
+        msg_id = #{msgId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+</mapper>

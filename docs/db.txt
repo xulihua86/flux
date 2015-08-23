@@ -153,12 +153,22 @@ create table flower(
 	PRIMARY KEY  (flower_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+// 流量币转赠
+create table donation (
+	id bigint not null auto_increment,
+	fromuserid bigint not null,
+	touserid bigint not null,
+	num bigint not null,
+	create_time bigint not null,
+	msg_id bigint not null comment '相关联的消息id',
+	PRIMARY KEY(id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 我的消息(共有哪些消息?)
 create table message(
 	msg_id bigint(20) not null auto_increment,
 	userid bigint(20) not null,
-	type int(1) not null comment '1 朋友转赠',
+	type int not null comment '3 朋友转赠',
 	num  bigint(20),
 	template varchar(512), 
 	status int(1) not null comment '当type 为 1时， 0 未领取 1 已领取',

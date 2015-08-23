@@ -27,7 +27,7 @@ public class MessageServiceTest {
 		m.setType(2);
 		m.setUserid(1l);
 		messageService.add(m);
-		
+		System.out.println(m);
 	}
 	
 	@Test
@@ -54,6 +54,11 @@ public class MessageServiceTest {
 		System.out.println(pageView);
 	}
 	
-	
+	// 106
+	@Test
+	public void receiveTest() {
+		boolean b = messageService.receive(2l, 106l);
+		System.out.println(b);
+	}
 	
 }

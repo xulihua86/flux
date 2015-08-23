@@ -204,4 +204,10 @@ public class UserServiceImpl extends BaseServiceImpl<User>implements UserService
 		String key = FluxHelp.getFollowKey(myuserid);
 		return redisCache.existZsetMember(key, userid+"");
 	}
+
+	
+	public void updateWithCache(User user) {
+		userMapper.update(user);
+		redisCache.setObject(FluxHelp.getUserKey(user.getUserid()), user);
+	}
 }

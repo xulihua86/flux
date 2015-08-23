@@ -147,9 +147,10 @@ public class UserController extends BaseController {
 			@RequestParam(value = "pageSize", required = false) String pageSize) {
 		
 		// 检查
-		if (StringUtils.isEmpty(value)) {
-			return MapResult.initMap(BaseResult.INVALID_PARAMETER.getCode(), BaseResult.INVALID_PARAMETER.getMsg());
-		}
+//		if (StringUtils.isEmpty(value)) {
+//			return MapResult.initMap(BaseResult.INVALID_PARAMETER.getCode(), BaseResult.INVALID_PARAMETER.getMsg());
+//		}
+		
 		int pageNow_int = 1;
 		int pagesize_int = 10;
 

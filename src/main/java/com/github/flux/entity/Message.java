@@ -3,6 +3,10 @@ package com.github.flux.entity;
 import java.io.Serializable;
 
 public class Message implements Serializable {
+	
+	public static int Received_Status = 1;   // 已领取
+	public static int unReceived_status = 0; // 未领取
+	
     /**
 	 * 
 	 */

@@ -53,7 +53,7 @@
   </delete>
   
   
-  <insert id="add" parameterType="com.github.flux.entity.Message" useGeneratedKeys="true" keyProperty="msg_id" >
+  <insert id="add" parameterType="com.github.flux.entity.Message" useGeneratedKeys="true" keyProperty="msgId" >
     insert into message (userid, type, 
       num, template, status, 
       create_time, tag_value )
