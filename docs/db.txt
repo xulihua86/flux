@@ -115,6 +115,8 @@ create table appointment(
 	view_num bigint(20) not null default 0 comment '查年人数',
 	create_time bigint(20) not null comment '发布时间',
 	status int(1) not null comment '活动状态 ( -1 未开始， 0 进行中  1 已结束',
+	role varchar(256) not null comment '约会规则',
+	target int(1) not null comment '约会面向人（0平台， 1 朋友)',
 	PRIMARY KEY (appointment_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -132,10 +134,19 @@ create table my_appointment(
 	PRIMARY KEY  (my_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- 约会留言
+create table appointment_message(
+	message_id	bigint(20) not null auto_increment,
+	appointment_id bigint(20) not null,  
+	content varchar(256) not null comment '留言内容',
+	create_time bigint(20) not null,
+	PRIMARY KEY (message_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- 好友关注(我关注的朋友)  可用redis的sortSet结构存储
 create table flower(
-	flower_id bigint not null auto_increment
+	flower_id bigint not null auto_increment,
 	userid bigint(20) not null comment '第一人称' ,
 	friend_id bigint(20) not null comment '关注的人',
 	create_time bigint(20) not null comment '关注时间',
