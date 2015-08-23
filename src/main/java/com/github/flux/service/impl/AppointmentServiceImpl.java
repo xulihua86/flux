@@ -27,7 +27,7 @@ public class AppointmentServiceImpl extends BaseServiceImpl<Appointment>
 		return appointmentMapper;
 	}
 
-	public Appointment getAppointmentInstance(Long userId, Long typeId,
+	private Appointment getAppointmentInstance(Long userId, Long typeId,
 			String logo, String name, Long targetNum, Integer face,
 			String beginTime, String endTime, Integer pushFriend,
 			String standard, String declaration, Long fluxNum, String rule) {
@@ -41,7 +41,7 @@ public class AppointmentServiceImpl extends BaseServiceImpl<Appointment>
 		app.setFluxNum(fluxNum);
 		app.setLogo(logo);
 		app.setName(name);
-		//app.setOnlyFriend(1);
+		app.setOnlyFriend(1);
 		app.setPushFriend(pushFriend);
 		app.setStandard(standard);
 		app.setStatus(-1);
@@ -49,6 +49,8 @@ public class AppointmentServiceImpl extends BaseServiceImpl<Appointment>
 		app.setTypeId(typeId);
 		app.setUserid(userId);
 		app.setViewNum(0l);
+		app.setRule(rule);
+		app.setTarget(face);
 		return app;
 	}
 
@@ -57,30 +59,31 @@ public class AppointmentServiceImpl extends BaseServiceImpl<Appointment>
 			String name, Long targetNum, Integer face, String beginTime,
 			String endTime, Integer pushFriend, String standard,
 			String declaration, Long fluxNum, String rule) {
-
+		Appointment app = this.getAppointmentInstance(userId, typeId, logo, name, targetNum, face, beginTime, endTime, pushFriend, standard, declaration, fluxNum, rule);
+		appointmentMapper.add(app);
 		return null;
 	}
 
 	@Override
 	public Appointment get(Long appointmentId) {
-		Appointment app = new Appointment();
-		app.setBeginTime(DateUtil.str2Date("2015-08-30 12:12:12", "yyyy-MM-dd HH:mm:ss").getTime());
-		app.setCreateTime(System.currentTimeMillis());
-		app.setDeclaration("haha");
-		app.setEndTime(DateUtil.str2Date("2015-08-30 12:12:12", "yyyy-MM-dd HH:mm:ss").getTime());
-		app.setEnrollNum(0l);
-		app.setEnrollUserids("");
-		app.setFluxNum(1000l);
-		app.setLogo("baidu.com");
-		app.setName("我们约会吧");
-		//app.setOnlyFriend(1);
-		app.setPushFriend(1);
-		app.setStandard("qqqq");
-		app.setStatus(-1);
-		app.setTargetNum(10l);
-		app.setTypeId(1222l);
-		app.setUserid(0l);
-		app.setViewNum(0l);
-		return app;
+		Appointment app = appointmentMapper.getById(appointmentId);
+        return app;
+	}
+
+	@Override
+	public Map<String, Object> del(Long appointmentId) {
+		appointmentMapper.deleteById(appointmentId);
+		//TODO  删除参与MyAppointment信息
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> update(Long appointmentId, Long userId, Long typeId, String logo, String name,
+			Long targetNum, Integer face, String beginTime, String endTime, Integer pushFriend, String standard,
+			String declaration, Long fluxNum, String rule) {
+		Appointment app = this.getAppointmentInstance(userId, typeId, logo, name, targetNum, face, beginTime, endTime, pushFriend, standard, declaration, fluxNum, rule);
+		app.setAppointmentId(appointmentId);
+		appointmentMapper.update(app);
+		return null;
 	}
 }

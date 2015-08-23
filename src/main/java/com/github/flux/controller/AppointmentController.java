@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.flux.entity.Appointment;
 import com.github.flux.plugin.mybatis.plugin.PageView;
+import com.github.flux.service.AppointmentMessageService;
 import com.github.flux.service.AppointmentService;
 import com.github.flux.service.MyAppointmentService;
 import com.github.flux.util.CookiesUtil;
@@ -34,6 +35,8 @@ public class AppointmentController extends BaseController {
 	private AppointmentService appointmentService;
 	@Resource
 	private MyAppointmentService myAppointmentService;
+	@Resource
+	private AppointmentMessageService appointmentMessageService;
 
 	/**
 	 * 保存约会
@@ -61,8 +64,8 @@ public class AppointmentController extends BaseController {
 			@RequestParam(value = "name", required = true) String name,
 			@RequestParam(value = "targetNum", required = true) Long targetNum,
 			@RequestParam(value = "face", required = true) Integer face,
-			@RequestParam(value = "beginTime", required = true) Long beginTime,
-			@RequestParam(value = "endTime", required = true) Long endTime,
+			@RequestParam(value = "beginTime", required = true) String beginTime,
+			@RequestParam(value = "endTime", required = true) String endTime,
 			@RequestParam(value = "pushFriend", required = true) Integer pushFriend,
 			@RequestParam(value = "standard", required = true) String standard,
 			@RequestParam(value = "declaration", required = true) String declaration,
@@ -71,8 +74,9 @@ public class AppointmentController extends BaseController {
 		Map<String, Object> map = null;
 		try {
 			
-			
-			
+			long userId = CookiesUtil.getInstance().getUserId(request);
+			logger.debug("userId:"+userId);
+			appointmentService.save(userId, typeId, logo, name, targetNum, face, beginTime, endTime, pushFriend, standard, declaration, fluxNum, rule);
 			
 			map = MapResult.initMap(BaseResult.SUCCESS.getCode(),
 					BaseResult.SUCCESS.getMsg());
@@ -114,8 +118,8 @@ public class AppointmentController extends BaseController {
 			@RequestParam(value = "name", required = true) String name,
 			@RequestParam(value = "targetNum", required = true) Long targetNum,
 			@RequestParam(value = "face", required = true) Integer face,
-			@RequestParam(value = "beginTime", required = true) Long beginTime,
-			@RequestParam(value = "endTime", required = true) Long endTime,
+			@RequestParam(value = "beginTime", required = true) String beginTime,
+			@RequestParam(value = "endTime", required = true) String endTime,
 			@RequestParam(value = "pushFriend", required = true) Integer pushFriend,
 			@RequestParam(value = "standard", required = true) String standard,
 			@RequestParam(value = "declaration", required = true) String declaration,
@@ -124,7 +128,9 @@ public class AppointmentController extends BaseController {
 		Map<String, Object> map = null;
 		try {
 			
-			
+			long userId = CookiesUtil.getInstance().getUserId(request);
+			logger.debug("userId:"+userId);
+			appointmentService.update(appointmentId, userId, typeId, logo, name, targetNum, face, beginTime, endTime, pushFriend, standard, declaration, fluxNum, rule);
 			
 			
 			map = MapResult.initMap(BaseResult.SUCCESS.getCode(),
@@ -250,7 +256,6 @@ public class AppointmentController extends BaseController {
 		Map<String, Object> map = null;
 		try {
 			
-			
 			Appointment app = appointmentService.get(appointmentId);
 			
 			map = MapResult.initMap(BaseResult.SUCCESS.getCode(),
@@ -335,15 +340,16 @@ public class AppointmentController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/mesage")
-	public Map<String, Object> mesage(HttpServletRequest request,@RequestParam(value = "mesage", required = true) String mesage) {
+	public Map<String, Object> mesage(HttpServletRequest request,@RequestParam(value = "appointmentId", required = true) Long appointmentId,@RequestParam(value = "mesage", required = true) String mesage) {
 		
 		logger.debug("mesage:"+mesage);
 		Map<String, Object> map = null;
 		try {
 			
-			
+			long userId = CookiesUtil.getInstance().getUserId(request);
+			logger.debug("userId:"+userId);
 			//Appointment app = appointmentService.get(appointmentId);
-			
+			appointmentMessageService.save(userId, appointmentId, mesage);
 			map = MapResult.initMap(BaseResult.SUCCESS.getCode(),
 					BaseResult.SUCCESS.getMsg());
 			//map.put("data", app);
