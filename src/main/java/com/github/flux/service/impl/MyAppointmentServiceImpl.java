@@ -21,7 +21,7 @@ public class MyAppointmentServiceImpl extends BaseServiceImpl<MyAppointment>impl
 
 	@Resource
 	private MyAppointmentMapper myAppointmentMapper;
-	
+
 	@Override
 	public BaseMapper<MyAppointment> getBaseMapper() {
 		return myAppointmentMapper;
@@ -32,7 +32,7 @@ public class MyAppointmentServiceImpl extends BaseServiceImpl<MyAppointment>impl
 		MyAppointment ma = this.getMyAppointmentInsance(userId, appointmentId, type);
 		long count = myAppointmentMapper.getCount(ma);
 		if(count > 0){
-			return null;
+			return MapResult.failMap();
 		}
 		myAppointmentMapper.add(ma);
 		Map<String, Object> map = MapResult.successMap();

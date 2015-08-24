@@ -290,9 +290,8 @@ public class AppointmentController extends BaseController {
 			
 			long userId = CookiesUtil.getInstance().getUserId(request);
 			logger.debug("userId:"+userId);
-	    	myAppointmentService.save(userId, appointmentId, 1);
-	    	map = MapResult.initMap(BaseResult.SUCCESS.getCode(),
-	    					BaseResult.SUCCESS.getMsg());
+	    	map = appointmentService.follow(userId, appointmentId);
+	    	
 		} catch (Exception e) {
 			logger.error("用户签到系统出现异常", e);
 			map = MapResult.initMap(BaseResult.SERVER_ERROR.getCode(),
@@ -319,9 +318,8 @@ public class AppointmentController extends BaseController {
 			long userId = CookiesUtil.getInstance().getUserId(request);
 			logger.debug("userId:"+userId);
 			
-			myAppointmentService.save(userId, appointmentId, 0);
-			map = MapResult.initMap(BaseResult.SUCCESS.getCode(),
-					BaseResult.SUCCESS.getMsg());
+			map = appointmentService.follow(userId, appointmentId);
+			
 		} catch (Exception e) {
 			logger.error("用户签到系统出现异常", e);
 			map = MapResult.initMap(BaseResult.SERVER_ERROR.getCode(),
@@ -349,11 +347,8 @@ public class AppointmentController extends BaseController {
 			
 			long userId = CookiesUtil.getInstance().getUserId(request);
 			logger.debug("userId:"+userId);
-			//Appointment app = appointmentService.get(appointmentId);
-			appointmentMessageService.save(userId, appointmentId, mesage);
-			map = MapResult.initMap(BaseResult.SUCCESS.getCode(),
-					BaseResult.SUCCESS.getMsg());
-			//map.put("data", app);
+			map = appointmentMessageService.save(userId, appointmentId, mesage);
+		
 		} catch (Exception e) {
 			logger.error("用户签到系统出现异常", e);
 			map = MapResult.initMap(BaseResult.SERVER_ERROR.getCode(),

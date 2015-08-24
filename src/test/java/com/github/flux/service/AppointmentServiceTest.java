@@ -46,12 +46,12 @@ public class AppointmentServiceTest {
 	
 	
 	@Test
-	@Ignore
+	//@Ignore
 	public void add2Test() {
         Long userId = 0l;
         Long typeId = 1l;
         String logo = "baidu.com.jpg";
-        String name = "test05";
+        String name = "test01";
         Long targetNum = 12l;
         Integer face =1;
         String beginTime = "2015-08-31 12:12:12";
@@ -100,6 +100,23 @@ public class AppointmentServiceTest {
 		Long userId = 0l;
 		Long appointmentId = 5l;
 		Map<String, Object> map = appointmentService.del(userId, appointmentId);
+		System.out.println(map.toString());
+	}
+	
+	
+	@Test
+	public void appyTest(){
+		Long userId = 2l;
+		Long appointmentId = 1l;
+		Map<String,Object> map = appointmentService.apply(userId, appointmentId);
+		System.out.println(map.toString());
+	}
+	
+	@Test
+	public void followTest(){
+		Long userId = 1l;
+		Long appointmentId = 1l;
+		Map<String,Object> map = appointmentService.follow(userId, appointmentId);
 		System.out.println(map.toString());
 	}
 	

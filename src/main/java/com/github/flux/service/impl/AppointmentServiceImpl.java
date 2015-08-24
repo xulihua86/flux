@@ -76,6 +76,8 @@ public class AppointmentServiceImpl extends BaseServiceImpl<Appointment>
 	@Override
 	public Appointment get(Long appointmentId) {
 		Appointment app = appointmentMapper.getById(appointmentId);
+		app.setViewNum(app.getViewNum()+1);
+		appointmentMapper.update(app);//更新浏览数
         return app;
 	}
 
@@ -118,5 +120,40 @@ public class AppointmentServiceImpl extends BaseServiceImpl<Appointment>
 		PageView pv = new PageView(pageNo, pageSize);
 		
 		return null;
+	}
+
+	@Override
+	public Map<String, Object> apply(Long userId, Long appointmentId) {
+		
+		Appointment app = appointmentMapper.getById(appointmentId);
+		if(app == null || app.getUserid() == userId || app.getStatus() != 0){
+			logger.debug("约会对象不存在或该约会不正常");
+			return MapResult.failMap();
+		}
+		
+		Map<String, Object> map = myAppointmentService.save(userId, appointmentId, 0);
+		if(map == null || !map.get("code").equals(0)){
+			return MapResult.failMap();
+		}
+		
+		app.setEnrollNum(app.getEnrollNum()+1);
+		String enrollUserids = app.getEnrollUserids().equals("") ? ""+userId : app.getEnrollUserids()+","+userId;
+		app.setEnrollUserids(enrollUserids);
+		appointmentMapper.update(app);//报名人数+1,增加报名用户
+		
+		
+		return MapResult.successMap();
+	}
+
+	@Override
+	public Map<String, Object> follow(Long userId, Long appointmentId) {
+		Appointment app = appointmentMapper.getById(appointmentId);
+		if(app == null || app.getUserid() == userId || app.getStatus() != 0){
+			logger.debug("约会对象不存在或该约会不正常");
+			return MapResult.failMap();
+		}
+		
+		Map<String, Object> map = myAppointmentService.save(userId, appointmentId, 1);
+		return map;
 	}
 }

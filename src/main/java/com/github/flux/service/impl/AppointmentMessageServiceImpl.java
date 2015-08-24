@@ -12,6 +12,7 @@ import com.github.flux.base.BaseServiceImpl;
 import com.github.flux.entity.AppointmentMessage;
 import com.github.flux.mapper.AppointmentMessageMapper;
 import com.github.flux.service.AppointmentMessageService;
+import com.github.flux.util.result.MapResult;
 
 @Transactional
 @Service("appointmentMessageService")
@@ -29,7 +30,7 @@ public class AppointmentMessageServiceImpl extends BaseServiceImpl<AppointmentMe
 	public Map<String, Object> save(Long userId, Long appointmentId, String message) {
 		AppointmentMessage appmess = this.getAppointmentMessageInstance(userId, appointmentId, message);
 		appointmentMessageMapper.add(appmess);
-		return null;
+		return MapResult.successMap();
 	}
 	
 	

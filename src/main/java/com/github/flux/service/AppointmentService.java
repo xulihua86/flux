@@ -27,5 +27,21 @@ public interface AppointmentService extends BaseService<Appointment> {
 	 * @return
 	 */
 	public Map<String,Object> getJoin(String sort, Integer pageNo, Integer pageSize);
+	
+	/**
+	 * 报名
+	 * @param userId
+	 * @param appointmentId
+	 * @return
+	 */
+	public Map<String,Object> apply(Long userId, Long appointmentId);
+	
+	/**
+	 * 关注约会 
+	 * @param userId
+	 * @param appointmentId
+	 * @return
+	 */
+	public Map<String,Object> follow(Long userId, Long appointmentId);
 
 }
