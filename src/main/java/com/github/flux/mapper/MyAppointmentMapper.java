@@ -6,5 +6,6 @@ import com.github.flux.entity.MyAppointment;
 public interface MyAppointmentMapper extends BaseMapper<MyAppointment> {
 	
 	public long getCount(MyAppointment myAppointment);
-
+	
+	public void deleteByAppointmentId(Long appointmentId);
 }

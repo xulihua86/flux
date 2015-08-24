@@ -1,7 +1,10 @@
 package com.github.flux.service;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,6 +20,7 @@ public class AppointmentServiceTest {
 	private AppointmentService appointmentService;
 	
 	@Test
+	@Ignore
 	public void addTest() {
 		Appointment a = new Appointment();
 		a.setBeginTime(System.currentTimeMillis());
@@ -40,5 +44,63 @@ public class AppointmentServiceTest {
 		
 	}
 	
+	
+	@Test
+	@Ignore
+	public void add2Test() {
+        Long userId = 0l;
+        Long typeId = 1l;
+        String logo = "baidu.com.jpg";
+        String name = "test05";
+        Long targetNum = 12l;
+        Integer face =1;
+        String beginTime = "2015-08-31 12:12:12";
+        String endTime = "2015-09-31 12:12:12";
+        Integer pushFriend = 0;
+        String standard = "标准qq";
+        String declaration = "约会宣言";
+        Long fluxNum = 10000l;
+        String rule = "公平游戏，先到先得";
+		appointmentService.save(userId, typeId, logo, name, targetNum, face, beginTime, endTime, pushFriend, standard, declaration, fluxNum, rule);
+		
+	}
+	
+	
+	@Test
+	@Ignore
+	public void updateTest() {
+		Long appointmentId = 1l;
+		
+        Long userId = 0l;
+        Long typeId = 1l;
+        String logo = "baidu.com.png";
+        String name = "test01";
+        Long targetNum = 12l;
+        Integer face =1;
+        String beginTime = "2015-08-31 12:12:12";
+        String endTime = "2015-09-31 12:12:12";
+        Integer pushFriend = 0;
+        String standard = "标准qq";
+        String declaration = "约会宣言";
+        Long fluxNum = 10000l;
+        String rule = "公平游戏，先到先得";
+		appointmentService.update(appointmentId, userId, typeId, logo, name, targetNum, face, beginTime, endTime, pushFriend, standard, declaration, fluxNum, rule);
+		
+	}
+	
+	@Test
+	public void getByIdTest(){
+		Appointment app = appointmentService.get(1l);
+		System.out.println(app.toString());
+	}
+	
+	
+	@Test
+	public void delTest(){
+		Long userId = 0l;
+		Long appointmentId = 5l;
+		Map<String, Object> map = appointmentService.del(userId, appointmentId);
+		System.out.println(map.toString());
+	}
 	
 }

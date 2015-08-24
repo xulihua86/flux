@@ -17,6 +17,15 @@ public interface AppointmentService extends BaseService<Appointment> {
 	 */
 	public Appointment get(Long appointmentId);
 	
-	public Map<String,Object> del(Long appointmentId);
+	public Map<String,Object> del(Long userId, Long appointmentId);
+	
+	/**
+	 * 分页获取我参加的
+	 * @param sort
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public Map<String,Object> getJoin(String sort, Integer pageNo, Integer pageSize);
 
 }

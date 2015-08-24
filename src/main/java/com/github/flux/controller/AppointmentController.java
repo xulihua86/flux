@@ -159,8 +159,9 @@ public class AppointmentController extends BaseController {
 		logger.debug("appointmentId:"+appointmentId);
 		Map<String, Object> map = null;
 		try {
-			
-			
+			long userId = CookiesUtil.getInstance().getUserId(request);
+			logger.debug("userId:"+userId);
+			appointmentService.del(userId,appointmentId);
 			map = MapResult.initMap(BaseResult.SUCCESS.getCode(),
 					BaseResult.SUCCESS.getMsg());
 		} catch (Exception e) {

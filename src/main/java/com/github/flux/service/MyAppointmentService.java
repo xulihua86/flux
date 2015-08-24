@@ -17,5 +17,12 @@ public interface MyAppointmentService extends BaseService<MyAppointment> {
 	
 	
 	public long getCount(Long userId, Long appointmentId, Integer type);
+	
+	/**的
+	 * 删除该约会
+	 * @param appointmentId
+	 * @return
+	 */
+	public Map<String,Object> delByAppointmentId(Long appointmentId);
 
 }

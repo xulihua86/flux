@@ -54,6 +54,13 @@ public class MyAppointmentServiceImpl extends BaseServiceImpl<MyAppointment>impl
 		MyAppointment ma = this.getMyAppointmentInsance(userId, appointmentId, type);
 		return 0;
 	}
+
+	@Override
+	public Map<String, Object> delByAppointmentId(Long appointmentId) {
+		// TODO 
+		myAppointmentMapper.deleteByAppointmentId(appointmentId);//删除约会关系
+		return null;
+	}
 	
 
 }

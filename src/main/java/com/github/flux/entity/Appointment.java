@@ -604,6 +604,22 @@ public class Appointment implements Serializable {
 	public void setTarget(Integer target) {
 		this.target = target;
 	}
+
+	@Override
+	public String toString() {
+		return "Appointment [appointmentId=" + appointmentId + ", userid="
+				+ userid + ", typeId=" + typeId + ", name=" + name + ", logo="
+				+ logo + ", targetNum=" + targetNum + ", beginTime="
+				+ beginTime + ", endTime=" + endTime + ", standard=" + standard
+				+ ", declaration=" + declaration + ", fluxNum=" + fluxNum
+				+ ", onlyFriend=" + onlyFriend + ", pushFriend=" + pushFriend
+				+ ", enrollNum=" + enrollNum + ", viewNum=" + viewNum
+				+ ", createTime=" + createTime + ", status=" + status
+				+ ", enrollUserids=" + enrollUserids + ", rule=" + rule
+				+ ", target=" + target + "]";
+	}
+	
+	
     
     
 }

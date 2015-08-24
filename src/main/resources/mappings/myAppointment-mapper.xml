@@ -41,13 +41,18 @@
 		select
 		<include refid="Base_Column_List" />
 		from my_appointment
-		where partake_id = #{partakeId,jdbcType=BIGINT}
+		where my_id = #{myId,jdbcType=BIGINT}
 	</select>
 
 
 	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from my_appointment
-		where partake_id = #{partakeId,jdbcType=BIGINT}
+		where my_id = #{myId,jdbcType=BIGINT}
+	</delete>
+	
+	<delete id="deleteByAppointmentId" parameterType="java.lang.Long">
+		delete from my_appointment
+		where appointment_id = #{appointmentId,jdbcType=BIGINT}
 	</delete>
 
 
@@ -79,7 +84,7 @@
 				create_time = #{createTime,jdbcType=BIGINT},
 			</if>
 		</set>
-		where partake_id = #{partakeId,jdbcType=BIGINT}
+		where my_id = #{myId,jdbcType=BIGINT}
 	</update>
 
 	<select id="getCount" resultType="java.lang.Long"
