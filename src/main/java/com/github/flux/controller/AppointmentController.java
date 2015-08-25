@@ -1,8 +1,6 @@
 package com.github.flux.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -22,7 +20,6 @@ import com.github.flux.service.AppointmentMessageService;
 import com.github.flux.service.AppointmentService;
 import com.github.flux.service.MyAppointmentService;
 import com.github.flux.util.CookiesUtil;
-import com.github.flux.util.StringUtils;
 import com.github.flux.util.result.BaseResult;
 import com.github.flux.util.result.MapResult;
 
