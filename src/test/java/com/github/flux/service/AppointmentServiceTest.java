@@ -1,5 +1,6 @@
 package com.github.flux.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -11,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.flux.entity.Appointment;
+import com.github.flux.plugin.mybatis.plugin.PageView;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath*:spring-application.xml")
@@ -120,4 +122,14 @@ public class AppointmentServiceTest {
 		System.out.println(map.toString());
 	}
 	
+	@Test
+	public void queryPageTest(){
+		PageView view = new PageView(2, 2);
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("userId", "1");
+		map.put("sort", "apply");
+		view = appointmentService.queryPage(view, map);
+		System.out.println(view.toString());
+	}
+
 }

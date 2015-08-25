@@ -45,6 +45,41 @@
 		</where>
 		order by create_time desc
 	</select>
+	
+    <select id="queryPage" resultType="Appointment" parameterType="map">
+		select
+		a.appointment_id appointmentId, 
+		a.userid, 
+		a.type_id typeId, 
+		a.name, 
+        a.logo, 
+        a.target_num targetNum, 
+        a.begin_time beginTime, 
+        a.end_time endTime, 
+        a.standard, 
+        a.declaration, 
+        a.flux_num fluxNum, 
+        a.only_friend onlyFriend, 
+        a.push_friend pushFriend, 
+        a.enroll_num enrollNum, 
+        a.view_num viewNum, 
+        a.create_time createTime, 
+        a.status, 
+        a.enroll_userids enrollUserids,
+        a.rule,
+        a.target
+		from appointment a, my_appointment b where a.appointment_id=b.appointment_id
+		<if test="sort == 'apply' ">
+		    and b.type=0 and b.userid=#{userId}
+		</if>
+		<if test="sort == 'follow' ">
+		    and b.type=1 and b.userid=#{userId}
+		</if>
+		<if test="sort == 'joined' ">
+		    and b.type=0 and a.status=1 and b.userid=#{userId}
+		</if>
+		order by b.create_time desc
+	</select>
 
 	<select id="queryAll" resultType="Appointment">
 		select

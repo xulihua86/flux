@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.github.flux.base.BaseService;
 import com.github.flux.entity.Appointment;
+import com.github.flux.plugin.mybatis.plugin.PageView;
 
 public interface AppointmentService extends BaseService<Appointment> {
 	
@@ -43,5 +44,8 @@ public interface AppointmentService extends BaseService<Appointment> {
 	 * @return
 	 */
 	public Map<String,Object> follow(Long userId, Long appointmentId);
+	
+	
+	public PageView queryPage(PageView pageView, Map<String,Object> map);
 
 }

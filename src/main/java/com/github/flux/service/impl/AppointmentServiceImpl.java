@@ -1,5 +1,7 @@
 package com.github.flux.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -155,5 +157,15 @@ public class AppointmentServiceImpl extends BaseServiceImpl<Appointment>
 		
 		Map<String, Object> map = myAppointmentService.save(userId, appointmentId, 1);
 		return map;
+	}
+
+	@Override
+	public PageView queryPage(PageView pageView, Map<String, Object> param) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("paging", pageView);
+		map.putAll(param);
+		List<Appointment> list = appointmentMapper.queryPage(map);
+		pageView.setRecords(list);
+		return pageView;
 	}
 }

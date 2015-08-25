@@ -20,10 +20,10 @@ public class MyAppointmentServiceTest {
 	public void addTest() {
 		MyAppointment m = new MyAppointment();
 		m.setCreateTime(System.currentTimeMillis());
-		m.setAppointmentId(1l);
+		m.setAppointmentId(5l);
 		m.setCreateTime(System.currentTimeMillis());
 		// m.setMyId(myId);
-		m.setType(1);
+		m.setType(0);
 		m.setUserid(1l);
 		myAppointmentService.add(m);
 		

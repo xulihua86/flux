@@ -1,6 +1,7 @@
 package com.github.flux.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import com.github.flux.service.AppointmentMessageService;
 import com.github.flux.service.AppointmentService;
 import com.github.flux.service.MyAppointmentService;
 import com.github.flux.util.CookiesUtil;
+import com.github.flux.util.StringUtils;
 import com.github.flux.util.result.BaseResult;
 import com.github.flux.util.result.MapResult;
 
@@ -182,7 +184,7 @@ public class AppointmentController extends BaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/flow/get/{sort}/{pageNo}/{pageSize}")
+	@RequestMapping("/folow/get/{sort}/{pageNo}/{pageSize}")
 	public Map<String, Object> getFlow(HttpServletRequest request,@PathVariable String sort,@PathVariable Integer pageNo, @PathVariable Integer pageSize) {
 		
 		logger.debug("sort:"+sort+"|pageNo:"+pageNo+"|pageSize:"+pageSize);
@@ -190,14 +192,17 @@ public class AppointmentController extends BaseController {
 		try {
 			
 			PageView page = new PageView(pageNo, pageSize);
-			page.setRowCount(1);
-			List<Appointment> list = new ArrayList<Appointment>();
-			Appointment app = appointmentService.get(1l);
-			list.add(app);
-			page.setRecords(list);
+			Map<String,Object> mapparam = new HashMap<String,Object>();
+			mapparam.put("sort", sort);
+/*			if(sort.equals("create")){
+				
+			}*/
+			
+			PageView view = appointmentService.queryPage(page, mapparam);
+			
 			map = MapResult.initMap(BaseResult.SUCCESS.getCode(),
 					BaseResult.SUCCESS.getMsg());
-			map.put("data", page);
+			map.put("data", view);
 		} catch (Exception e) {
 			logger.error("用户签到系统出现异常", e);
 			map = MapResult.initMap(BaseResult.SERVER_ERROR.getCode(),
@@ -222,16 +227,17 @@ public class AppointmentController extends BaseController {
 		logger.debug("sort:"+sort+"|pageNo:"+pageNo+"|pageSize:"+pageSize);
 		Map<String, Object> map = null;
 		try {
-			
+			long userId = CookiesUtil.getInstance().getUserId(request);
+			logger.debug("userId:"+userId);
 			PageView page = new PageView(pageNo, pageSize);
-			page.setRowCount(1);
-			List<Appointment> list = new ArrayList<Appointment>();
-			Appointment app = appointmentService.get(1l);
-			list.add(app);
-			page.setRecords(list);
+			Map<String,Object> mapparam = new HashMap<String,Object>();
+			mapparam.put("sort", sort);
+			mapparam.put("userId", 1);
+			PageView view = appointmentService.queryPage(page, mapparam);
+			
 			map = MapResult.initMap(BaseResult.SUCCESS.getCode(),
 					BaseResult.SUCCESS.getMsg());
-			map.put("data", page);
+			map.put("data", view);
 		} catch (Exception e) {
 			logger.error("用户签到系统出现异常", e);
 			map = MapResult.initMap(BaseResult.SERVER_ERROR.getCode(),
@@ -257,6 +263,8 @@ public class AppointmentController extends BaseController {
 		Map<String, Object> map = null;
 		try {
 			
+			long userId = CookiesUtil.getInstance().getUserId(request);
+			logger.debug("userId:"+userId);
 			Appointment app = appointmentService.get(appointmentId);
 			
 			map = MapResult.initMap(BaseResult.SUCCESS.getCode(),
